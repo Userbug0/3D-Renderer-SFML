@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\Vector3.hpp">
+    <ClInclude Include="core\Vector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\Matrix.hpp">
+    <ClInclude Include="core\Matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

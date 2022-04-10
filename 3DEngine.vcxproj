@@ -139,8 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="core\Matrix.hpp" />
-    <ClInclude Include="core\Vector3.hpp" />
+    <ClInclude Include="core\Matrix.h" />
+    <ClInclude Include="core\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "core/Vector3.hpp"
-#include "core/Matrix.hpp"
+#include "core/Vector3.h"
+#include "core/Matrix.h"
 
 
 void test()

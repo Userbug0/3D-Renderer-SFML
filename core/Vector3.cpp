@@ -1,6 +1,6 @@
 #include <string> 
 
-#include "Vector3.hpp"
+#include "Vector3.h"
 
 
 Vector3::Vector3(const Matrix<float>& matrix)

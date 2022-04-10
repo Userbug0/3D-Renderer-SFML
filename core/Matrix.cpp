@@ -1,6 +1,6 @@
 #include <string> 
 
-#include "Matrix.hpp"
+#include "Matrix.h"
 
 
 Matrix4x4::Matrix4x4(const std::initializer_list<std::initializer_list<float>>& list):

@@ -3,7 +3,7 @@
 #include <ostream>
 #include <cmath>
 
-#include "Matrix.hpp"
+#include "Matrix.h"
 
 
 struct Vector3{
