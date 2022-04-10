@@ -8,7 +8,6 @@ template <typename T>
 class Matrix;
 class Matrix4x4;
 class InvalidMatrixSizeException;
-enum class MatrixErrors{INIT_FAILED, OPERATORS_FAILED, FUNCTIONS_FAILED};
 
 
 // T is expected to be a numeric type such as int, float, unsigned int...
@@ -16,7 +15,7 @@ template <typename T = float>
 class Matrix
 {
 public:
-    Matrix(): m_height(1), m_width(0) {}
+    Matrix(): height_(1), width_(0) {}
     Matrix(size_t height, size_t width, const T& value = 0);
     Matrix(const std::initializer_list<std::initializer_list<T>>& list);
 
@@ -32,22 +31,26 @@ public:
     Matrix<T>& transpose();
     Matrix<T>& resize(int new_height, int new_width);
 
-    size_t getHeight() const {return m_height;}
-    size_t getWidth() const {return m_width;}
+    size_t getHeight() const {return height_;}
+    size_t getWidth() const {return width_;}
     std::vector<T> operator[] (size_t index) const {return Array[index];} // read
     std::vector<T>& operator[] (size_t index) {return Array[index];}      // write
 
 
-    Matrix<T> operator/(const T& k);
-    Matrix<T> operator*(const T& k);
+    Matrix<T> operator-(T k);
+    Matrix<T> operator+(T k);
+    Matrix<T>& operator+=(T k);
+    Matrix<T>& operator-=(T k);
+
+    Matrix<T> operator/(T k);
+    Matrix<T> operator*(T k);
+    Matrix<T>& operator*=(T k);
+    Matrix<T>& operator/=(T k);
+
     Matrix<T> operator* (const Matrix<T>& other);
-
-    Matrix<T> operator+(const T& k);
     Matrix<T> operator+(const Matrix<T>& other);
-    Matrix<T>& operator+=(const Matrix<T>& other);
-
-    Matrix<T> operator-(const T& k);
     Matrix<T> operator-(const Matrix<T>& other);
+    Matrix<T>& operator+=(const Matrix<T>& other);
     Matrix<T>& operator-=(const Matrix<T>& other);
 
 
@@ -56,20 +59,19 @@ protected:
 
     //          Helper functions for operators
     // Array[i][j] = func(m1[i][j], m2[i][j])
-    Matrix<T>& apply(const Matrix<T>& m1, const Matrix<T> m2, T (*func)(const T&, const T&));
+    Matrix<T>& apply(const Matrix<T>& m1, const Matrix<T>& m2, T (*func)(T, T));
     // Array[i][j] = func(m[i][j], k)
-    Matrix<T>& apply(const Matrix<T>& m, const T& k, T (*func)(const T&, const T&));
+    Matrix<T>& apply(const Matrix<T>& m, T k, T (*func)(T, T));
     // expects that row.size() = column.size()
     static T DotProduct(const std::vector<T>& row, const std::vector<T>& column);
 
 private:
-    size_t m_height;
-    size_t m_width;
+    size_t height_;
+    size_t width_;
 };
 
 
 #include "Matrix.tpp"
-#include "Matrix_operators.tpp"
 
 
 class Matrix4x4: public Matrix<float>
@@ -89,10 +91,11 @@ private:
 class InvalidMatrixSizeException: public std::exception
 {
 public:
-    InvalidMatrixSizeException(size_t origin_height, size_t origin_width, size_t height, size_t width, MatrixErrors p);
-    const char* what() const noexcept {return m_info.c_str();}
+    InvalidMatrixSizeException(const std::string& info): info_(info) {};
+    InvalidMatrixSizeException(size_t origin_height, size_t origin_width, size_t height, size_t width, const std::string& info);
+    const char* what() const noexcept {return info_.c_str();}
 
 private:
-    std::string m_info;
+    std::string info_;
 };
 

@@ -6,11 +6,17 @@
 Vector3::Vector3(const Matrix<float>& matrix)
 {
     if(matrix.getHeight() != 1 || matrix.getWidth() != 3)
-        throw std::invalid_argument("Vector3 cannot be copied by this matrix (height = " + \
+        throw InvalidMatrixSizeException("Vector3 cannot be copied by this matrix (height = " + \
                             std::to_string(matrix.getHeight()) + ", width = " + std::to_string(matrix.getWidth()) + ")\n");
     x = matrix[0][0];
     y = matrix[0][1];
     z = matrix[0][2];
+}
+
+
+float Vector3::Distance(const Vector3& v1, const Vector3& v2)
+{
+    return (v1 - v2).getLength();
 }
 
 
@@ -23,6 +29,7 @@ Vector3 Vector3::Reflect(const Vector3& ToReflect, const Vector3& v)
     return res;
 }
 
+
 Vector3 Vector3::CrossProduct(const Vector3& v1, const Vector3& v2)
 {
     Vector3 result;
@@ -32,6 +39,25 @@ Vector3 Vector3::CrossProduct(const Vector3& v1, const Vector3& v2)
     return result;
 }
 
+
+Vector3& Vector3::operator*=(float k)
+{
+    x *= k;
+    y *= k;
+    z *= k;
+    return *this;
+}
+
+
+Vector3& Vector3::operator/=(float k)
+{
+    x /= k;
+    y /= k;
+    z /= k;
+    return *this;
+}
+
+
 Vector3& Vector3::operator+=(const Vector3& other)
 {
     x += other.x;
@@ -39,6 +65,7 @@ Vector3& Vector3::operator+=(const Vector3& other)
     z += other.z;
     return *this;
 }
+
 
 Vector3& Vector3::operator-=(const Vector3& other)
 {
@@ -48,11 +75,13 @@ Vector3& Vector3::operator-=(const Vector3& other)
     return *this;
 }
 
+
 Vector3 Vector3::getNormalized() const
 {
     float l = getLength();
     return Vector3{x / l, y / l, z / l};
 }
+
 
 Vector3& Vector3::normalize()
 {
@@ -60,6 +89,7 @@ Vector3& Vector3::normalize()
     x /= l, y /= l, z /= l;
     return *this;
 }
+
 
 std::ostream& operator<<(std::ostream& os, const Vector3& v)
 {

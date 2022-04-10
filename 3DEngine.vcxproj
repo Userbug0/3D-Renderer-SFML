@@ -139,17 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Matrix.hpp" />
-    <ClInclude Include="Vector3.hpp" />
+    <ClInclude Include="core\Matrix.hpp" />
+    <ClInclude Include="core\Vector3.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="core\Matrix.cpp" />
+    <ClCompile Include="core\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Matrix.tpp" />
-    <None Include="Matrix_operators.tpp" />
+    <None Include="core\Matrix.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
