@@ -3,8 +3,6 @@
 #include <SFML/Graphics.hpp>
 
 
-
-
 class RenderEngine
 {
 public:

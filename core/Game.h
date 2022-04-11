@@ -16,7 +16,6 @@ private:
 	void update(const sf::Time& dt);
 	void handleEvent();
 
-
 	bool running_;
 	sf::RenderWindow* window_;
 	RenderEngine* engine_;
