@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "core/Game.h"
-
+#include "core/Settings.h"
 
 
 int main()

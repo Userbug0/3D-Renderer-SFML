@@ -1,12 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game.h"
-
-#define WINDOW_WIDTH  = 800;
-#define WINDOW_HEIGHT = 600;
-
-#define FPS	= 500;
-
+#include "Settings.h"
 
 
 Game::Game():
@@ -15,8 +10,8 @@ Game::Game():
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    window_ = new sf::RenderWindow(sf::VideoMode(800, 600), "Fun", sf::Style::Close, settings);
-    window_->setFramerateLimit(500);
+    window_ = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Fun", sf::Style::Close, settings);
+    window_->setFramerateLimit(FPS);
 
 	engine_ = new RenderEngine();
 }
@@ -40,6 +35,7 @@ void Game::gameLoop()
     {
         handleEvent();
         update(clock.getElapsedTime());
+        clock.restart();
         engine_->Render(window_);
     }
 }

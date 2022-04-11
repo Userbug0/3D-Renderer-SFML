@@ -154,6 +154,7 @@
     <ClInclude Include="core\Game.h" />
     <ClInclude Include="core\Matrix.h" />
     <ClInclude Include="core\RenderEngine.h" />
+    <ClInclude Include="core\Settings.h" />
     <ClInclude Include="core\Vector3.h" />
   </ItemGroup>
   <ItemGroup>

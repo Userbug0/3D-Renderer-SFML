@@ -27,6 +27,9 @@
     <ClInclude Include="core\RenderEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Vector3.cpp">
