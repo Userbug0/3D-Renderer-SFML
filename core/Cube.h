@@ -8,13 +8,15 @@
 class Cube
 {
 public:
-	Cube(const Vector3& position);
+	Cube();
 	~Cube() = default;
 
-	void Draw();
+	size_t NumOfTrinagles() const { return m_NumOfTriangles; }
+	Triangle& getTriangle(size_t index) { return m_triangles[index]; }
+
+	void Translate(const Vector3& offset);
 
 private:
 	Mesh m_triangles;
-
-	Vector3 m_position;
+	const size_t m_NumOfTriangles = 12;
 };

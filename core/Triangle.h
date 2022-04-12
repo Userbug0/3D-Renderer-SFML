@@ -3,6 +3,8 @@
 #include <vector>
 #include <initializer_list>
 
+#include <SFML/Graphics.hpp>
+
 #include "Vector3.h"
 
 
@@ -17,23 +19,29 @@ public:
 	Triangle(const std::initializer_list<Vector3>& list);
 	~Triangle() = default;
 
+	void Draw(sf::RenderWindow* window);
+
 	Vector3 operator[] (size_t index) const { return m_points[index]; } 
 	Vector3& operator[] (size_t index) { return m_points[index]; } 
 
 private:
 	Vector3 m_points[3];
+	sf::ConvexShape m_toDraw;
 };
 
 
 class Mesh
 {
 public:
-	Mesh() = default;
+	Mesh() : m_size(0) {};
 	Mesh(const std::initializer_list<Triangle>& list);
 	~Mesh() = default;
 
 	Triangle operator[] (size_t index) const { return m_array[index]; }
 	Triangle& operator[] (size_t index) { return m_array[index]; } 
+
+	auto begin() { return m_array.begin(); }
+	auto end() { return m_array.end(); }
 
 	size_t size() { return m_size; };
 

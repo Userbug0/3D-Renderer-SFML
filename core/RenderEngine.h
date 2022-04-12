@@ -2,9 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Cube.h"
+#include "Triangle.h"
 #include "Matrix.h"
-#include "Vector3.h"
-#include "Settings.h"
 
 
 class RenderEngine
@@ -14,12 +14,14 @@ public:
 	~RenderEngine() = default;
 
 	void Start();
-	void Render(sf::RenderWindow* window);
+	void Render(sf::RenderWindow* window, Cube* cube);
 
 private:
+	void projectTriangle(Triangle& tri);
+	void scaleTriangle(Triangle& tri);
 
-	static constexpr float FieldOfView = (float)M_PI / 2;
 
+	Matrix4x4 m_projectionMatrix;
 	sf::Color m_backgroundColor;
 };
 

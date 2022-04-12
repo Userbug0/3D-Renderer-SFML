@@ -10,10 +10,19 @@ Game::Game():
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    m_window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Fun", sf::Style::Close, settings);
+    m_window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Fun", sf::Style::Close, settings);
     m_window->setFramerateLimit(FPS);
 
 	m_engine = new RenderEngine();
+
+    initObjects();
+}
+
+
+void Game::initObjects()
+{
+    m_cube = new Cube();
+    m_cube->Translate({ 0, -0.5f, 1 });
 }
 
 
@@ -38,7 +47,7 @@ void Game::gameLoop()
         update(clock.getElapsedTime());
         clock.restart();
 
-        m_engine->Render(m_window);
+        m_engine->Render(m_window, m_cube);
     }
 }
 

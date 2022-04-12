@@ -32,8 +32,11 @@ struct Vector3{
 
     friend Vector3 operator-(const Vector3& v){return Vector3{-v.x, -v.y, -v.z};}
 
+    Vector3& operator+=(float k);
+    Vector3& operator-=(float k);
     Vector3& operator*=(float k);
     Vector3& operator/=(float k);
+
     friend Vector3 operator*(float k, const Vector3& v){return Vector3{v.x * k, v.y * k, v.z * k};}
     friend Vector3 operator*(const Vector3& v, float k){return Vector3{v.x * k, v.y * k, v.z * k};}
     friend Vector3 operator/(const Vector3& v, float k) {return Vector3{v.x / k, v.y / k, v.z / k};}

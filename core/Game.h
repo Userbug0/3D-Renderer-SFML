@@ -17,6 +17,7 @@ private:
 	void update(const sf::Time& dt);
 	void handleEvent();
 
+	void initObjects();
 	Cube* m_cube;
 
 	bool m_running;

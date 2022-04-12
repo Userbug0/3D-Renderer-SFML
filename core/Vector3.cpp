@@ -57,6 +57,24 @@ Vector3 Vector3::CrossProduct(const Vector3& v1, const Vector3& v2)
 }
 
 
+Vector3& Vector3::operator+=(float k)
+{
+    x += k;
+    y += k;
+    z += k;
+    return *this;
+}
+
+
+Vector3& Vector3::operator-=(float k)
+{
+    x -= k;
+    y -= k;
+    z -= k;
+    return *this;
+}
+
+
 Vector3& Vector3::operator*=(float k)
 {
     x *= k;
