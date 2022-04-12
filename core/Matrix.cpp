@@ -27,10 +27,12 @@ Matrix4x4::Matrix4x4(Matrix<float>&& matrix):
 }
 
 
+
+
 InvalidMatrixSizeException::InvalidMatrixSizeException(size_t origin_height, size_t origin_width, \
                                                         size_t height, size_t width, const std::string& info)
 {
-    info_ = "Invalid Matrix Size Error: " + info;
-    info_ += "\n\tOrigin Matrix: height = " + std::to_string(origin_height) + ", width = " + std::to_string(origin_width) + \
+    m_info = "Invalid Matrix Size Error: " + info;
+    m_info += "\n\tOrigin Matrix: height = " + std::to_string(origin_height) + ", width = " + std::to_string(origin_width) + \
              "\n\tGiven Matrix: height = " + std::to_string(height) + ", width = " + std::to_string(width) + "\n";
 }

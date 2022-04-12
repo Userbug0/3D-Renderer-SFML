@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RenderEngine.h"
+#include "Cube.h"
 
 
 class Game
@@ -16,8 +17,10 @@ private:
 	void update(const sf::Time& dt);
 	void handleEvent();
 
-	bool running_;
-	sf::RenderWindow* window_;
-	RenderEngine* engine_;
+	Cube* m_cube;
+
+	bool m_running;
+	sf::RenderWindow* m_window;
+	RenderEngine* m_engine;
 };
 

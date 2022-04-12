@@ -5,23 +5,23 @@
 
 
 Game::Game():
-    running_(true)
+    m_running(true)
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    window_ = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Fun", sf::Style::Close, settings);
-    window_->setFramerateLimit(FPS);
+    m_window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Fun", sf::Style::Close, settings);
+    m_window->setFramerateLimit(FPS);
 
-	engine_ = new RenderEngine();
+	m_engine = new RenderEngine();
 }
 
 
 void Game::Start()
 {
-    engine_->Start();
+    m_engine->Start();
 
-    running_ = true;
+    m_running = true;
 
     gameLoop();
 }
@@ -31,14 +31,14 @@ void Game::gameLoop()
 {
     sf::Clock clock;
 
-    while (running_)
+    while (m_running)
     {
         handleEvent();
 
         update(clock.getElapsedTime());
         clock.restart();
 
-        engine_->Render(window_);
+        m_engine->Render(m_window);
     }
 }
 
@@ -47,10 +47,10 @@ void Game::handleEvent()
 {
     sf::Event event;
 
-    while (window_->pollEvent(event))
+    while (m_window->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
-            running_ = false;
+            m_running = false;
     }
 }
 
@@ -63,6 +63,6 @@ void Game::update(const sf::Time& dt)
 
 Game::~Game()
 {
-    delete engine_;
-    delete window_;
+    delete m_engine;
+    delete m_window;
 }

@@ -1,4 +1,5 @@
 #include <string> 
+#include <iostream>
 
 #include "Vector3.h"
 
@@ -11,6 +12,22 @@ Vector3::Vector3(const Matrix<float>& matrix)
     x = matrix[0][0];
     y = matrix[0][1];
     z = matrix[0][2];
+}
+
+
+Vector3& Vector3::ApplyMultiplication(const Matrix4x4& mat)
+{
+    Vector3 result;
+    float w;
+
+    result.x = mat[0][0] * x + mat[1][0] * y + mat[2][0] * z + mat[3][0];
+    result.y = mat[0][1] * x + mat[1][1] * y + mat[2][1] * z + mat[3][1];
+    result.z = mat[0][2] * x + mat[1][2] * y + mat[2][2] * z + mat[3][2];
+    w        = mat[0][3] * x + mat[1][3] * y + mat[2][3] * z + mat[3][3];
+    if(w != 0)
+        return *this = result / w;
+
+    return *this = result;
 }
 
 

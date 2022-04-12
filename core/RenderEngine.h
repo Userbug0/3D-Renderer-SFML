@@ -2,6 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Matrix.h"
+#include "Vector3.h"
+#include "Settings.h"
+
 
 class RenderEngine
 {
@@ -13,6 +17,9 @@ public:
 	void Render(sf::RenderWindow* window);
 
 private:
-	sf::Color backgroundColor_;
+
+	static constexpr float FieldOfView = (float)M_PI / 2;
+
+	sf::Color m_backgroundColor;
 };
 

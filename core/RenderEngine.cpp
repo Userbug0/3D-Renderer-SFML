@@ -2,7 +2,7 @@
 
 
 RenderEngine::RenderEngine(const sf::Color& bgColor)
-	: backgroundColor_(bgColor)
+	: m_backgroundColor(bgColor)
 {
 
 }
@@ -10,7 +10,7 @@ RenderEngine::RenderEngine(const sf::Color& bgColor)
 
 void RenderEngine::Render(sf::RenderWindow* window)
 {
-	window->clear(backgroundColor_);
+	window->clear(m_backgroundColor);
 
 	window->display();
 }

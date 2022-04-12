@@ -15,7 +15,7 @@ template <typename T = float>
 class Matrix
 {
 public:
-    Matrix(): height_(1), width_(0) {}
+    Matrix(): m_height(1), m_width(0) {}
     Matrix(size_t height, size_t width, const T& value = 0);
     Matrix(const std::initializer_list<std::initializer_list<T>>& list);
 
@@ -31,19 +31,19 @@ public:
     Matrix<T>& transpose();
     Matrix<T>& resize(int new_height, int new_width);
 
-    size_t getHeight() const {return height_;}
-    size_t getWidth() const {return width_;}
+    size_t getHeight() const {return m_height;}
+    size_t getWidth() const {return m_width;}
     std::vector<T> operator[] (size_t index) const {return Array[index];} // read
     std::vector<T>& operator[] (size_t index) {return Array[index];}      // write
 
 
     Matrix<T> operator-(T k);
     Matrix<T> operator+(T k);
-    Matrix<T>& operator+=(T k);
-    Matrix<T>& operator-=(T k);
-
     Matrix<T> operator/(T k);
     Matrix<T> operator*(T k);
+
+    Matrix<T>& operator+=(T k);
+    Matrix<T>& operator-=(T k);
     Matrix<T>& operator*=(T k);
     Matrix<T>& operator/=(T k);
 
@@ -66,8 +66,8 @@ protected:
     static T DotProduct(const std::vector<T>& row, const std::vector<T>& column);
 
 private:
-    size_t height_;
-    size_t width_;
+    size_t m_height;
+    size_t m_width;
 };
 
 
@@ -91,11 +91,11 @@ private:
 class InvalidMatrixSizeException: public std::exception
 {
 public:
-    InvalidMatrixSizeException(const std::string& info): info_(info) {};
+    InvalidMatrixSizeException(const std::string& info): m_info(info) {};
     InvalidMatrixSizeException(size_t origin_height, size_t origin_width, size_t height, size_t width, const std::string& info);
-    const char* what() const noexcept {return info_.c_str();}
+    const char* what() const noexcept {return m_info.c_str();}
 
 private:
-    std::string info_;
+    std::string m_info;
 };
 
