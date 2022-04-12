@@ -34,8 +34,10 @@ void Game::gameLoop()
     while (running_)
     {
         handleEvent();
+
         update(clock.getElapsedTime());
         clock.restart();
+
         engine_->Render(window_);
     }
 }
