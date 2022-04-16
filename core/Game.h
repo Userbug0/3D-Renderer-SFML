@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RenderEngine.h"
+#include "PhysicEngine.h"
 #include "Cube.h"
 
 
@@ -14,7 +15,6 @@ public:
 
 private:
 	void gameLoop();
-	void update(const sf::Time& dt);
 	void handleEvent();
 
 	void initObjects();
@@ -22,6 +22,7 @@ private:
 
 	bool m_running;
 	sf::RenderWindow* m_window;
-	RenderEngine* m_engine;
+	PhysicEngine* m_physic;
+	RenderEngine* m_renderer;
 };
 

@@ -13,7 +13,8 @@ Game::Game():
     m_window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Fun", sf::Style::Close, settings);
     m_window->setFramerateLimit(FPS);
 
-	m_engine = new RenderEngine();
+	m_renderer = new RenderEngine();
+    m_physic = new PhysicEngine();
 
     initObjects();
 }
@@ -22,13 +23,15 @@ Game::Game():
 void Game::initObjects()
 {
     m_cube = new Cube();
-    m_cube->Translate({ 0, -0.5f, 1 });
+    m_cube->Translate({ -0.5f, -0.5f, 1 });
+    m_cube->AddRotation({ 0, 0.001f, 0 });
+
 }
 
 
 void Game::Start()
 {
-    m_engine->Start();
+    m_renderer->Start();
 
     m_running = true;
 
@@ -44,10 +47,10 @@ void Game::gameLoop()
     {
         handleEvent();
 
-        update(clock.getElapsedTime());
+        m_physic->Update(clock.getElapsedTime(), m_cube);
         clock.restart();
 
-        m_engine->Render(m_window, m_cube);
+        m_renderer->Render(m_window, m_cube);
     }
 }
 
@@ -64,14 +67,8 @@ void Game::handleEvent()
 }
 
 
-void Game::update(const sf::Time& dt)
-{
-
-}
-
-
 Game::~Game()
 {
-    delete m_engine;
+    delete m_renderer;
     delete m_window;
 }

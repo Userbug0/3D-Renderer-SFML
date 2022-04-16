@@ -3,6 +3,7 @@
 #include <iostream>
 
 Triangle::Triangle(const std::initializer_list<Vector3>& list)
+	: m_toDraw(sf::LinesStrip, 4)
 {
 	uint8_t i = 0;
 	for (auto& point : list)
@@ -10,17 +11,14 @@ Triangle::Triangle(const std::initializer_list<Vector3>& list)
 		m_points[i] = point;
 		i++;
 	}
-	m_toDraw.setPointCount(3);
-	m_toDraw.setOutlineThickness(1);
-	m_toDraw.setFillColor(sf::Color::Transparent);
 }
 
 
 void Triangle::Draw(sf::RenderWindow* window)
 {
-	for (int i = 0; i < 3; ++i)
-		m_toDraw.setPoint(i, { m_points[i].x, m_points[i].y });
-
+	m_toDraw[0] = m_toDraw[3] = sf::Vertex({ m_points[0].x, m_points[0].y });
+	m_toDraw[1] = sf::Vertex({ m_points[1].x, m_points[1].y });
+	m_toDraw[2] = sf::Vertex({ m_points[2].x, m_points[2].y });
 
 	window->draw(m_toDraw);
 }

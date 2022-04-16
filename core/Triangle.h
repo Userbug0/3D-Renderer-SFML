@@ -26,7 +26,7 @@ public:
 
 private:
 	Vector3 m_points[3];
-	sf::ConvexShape m_toDraw;
+	sf::VertexArray m_toDraw;
 };
 
 

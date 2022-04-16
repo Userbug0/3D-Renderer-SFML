@@ -10,7 +10,7 @@ RenderEngine::RenderEngine(const sf::Color& bgColor)
 {
 	float AspectRatio = (float)WINDOW_HEIGHT / WINDOW_WIDTH;
 	float FovRad = 1 / tanf(FIELD_OF_VIEW * 0.5f);
-	float zFar = 1000;
+	float zFar = 2000;
 	float zNear = 0.1f;
 
 	m_projectionMatrix[0][0] = AspectRatio * FovRad;
@@ -25,6 +25,7 @@ void RenderEngine::Render(sf::RenderWindow* window, Cube* cube)
 {
 	window->clear(m_backgroundColor);
 
+
 	for (size_t i = 0; i < cube->NumOfTrinagles(); ++i)
 	{
 		Triangle tri = cube->getTriangle(i);
@@ -33,6 +34,7 @@ void RenderEngine::Render(sf::RenderWindow* window, Cube* cube)
 		scaleTriangle(tri);
 
 		tri.Draw(window);
+
 	}
 
 	window->display();
@@ -42,7 +44,10 @@ void RenderEngine::Render(sf::RenderWindow* window, Cube* cube)
 void RenderEngine::projectTriangle(Triangle& tri)
 {
 	for (int i = 0; i < 3; ++i)
+	{
 		tri[i].ApplyMultiplication(m_projectionMatrix);
+	}
+
 }
 
 

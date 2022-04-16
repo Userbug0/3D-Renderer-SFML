@@ -24,6 +24,7 @@ Vector3& Vector3::ApplyMultiplication(const Matrix4x4& mat)
     result.y = mat[0][1] * x + mat[1][1] * y + mat[2][1] * z + mat[3][1];
     result.z = mat[0][2] * x + mat[1][2] * y + mat[2][2] * z + mat[3][2];
     w        = mat[0][3] * x + mat[1][3] * y + mat[2][3] * z + mat[3][3];
+
     if(w != 0)
         return *this = result / w;
 
