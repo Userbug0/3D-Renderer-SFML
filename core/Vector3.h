@@ -53,7 +53,7 @@ struct Vector3{
 
     static float DotProduct(const Vector3& v1, const Vector3& v2) {return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;}
     static Vector3 CrossProduct(const Vector3& v1, const Vector3& v2);
-    static Vector3 Reflect(const Vector3& ToReflect, const Vector3& v, bool isNormalized = false);
+    static Vector3 Reflect(const Vector3& ToReflect, const Vector3& v);
     static float Distance(const Vector3& v1, const Vector3& v2);
 };
 

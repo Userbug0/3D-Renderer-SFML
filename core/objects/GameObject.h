@@ -13,7 +13,7 @@ public:
 	inline Triangle GetTriangle(size_t i)  const { return m_triangles[i]; }
 
 	inline Vector3 GetOrigin() 			   const { return m_origin; }
-	inline void SetOrigin(const Vector3& point) { m_origin = point; }
+	inline void SetOrigin(const Vector3& point)  { m_origin = point; }
 
 	void AddTriangle(const Triangle& tri);
 	void SetColor(const sf::Color& color);

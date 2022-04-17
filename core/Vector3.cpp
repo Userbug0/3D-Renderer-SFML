@@ -38,20 +38,12 @@ float Vector3::Distance(const Vector3& v1, const Vector3& v2)
 }
 
 
-Vector3 Vector3::Reflect(const Vector3& ToReflect, const Vector3& v, bool isNormalized)
+Vector3 Vector3::Reflect(const Vector3& ToReflect, const Vector3& v)
 {
     Vector3 res = ToReflect;
 
-    float temp;
-    if (isNormalized == false)
-    {
-        float m = v.getLength();
-        temp = Vector3::DotProduct(res, v) / (m * m);
-    }
-    else 
-    {
-        temp = Vector3::DotProduct(res, v);
-    }
+    float m = v.getLength();
+    float temp = Vector3::DotProduct(res, v) / (m * m);
 
     res -= 2 * temp * v;
     return res;
