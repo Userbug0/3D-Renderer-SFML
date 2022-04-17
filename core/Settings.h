@@ -9,5 +9,5 @@
 
 #define FPS				200
 
-#define FIELD_OF_VIEW	2 * M_PI / 3
+#define FIELD_OF_VIEW	M_PI / 2
 

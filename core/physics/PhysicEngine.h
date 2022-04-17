@@ -2,7 +2,7 @@
 
 #include <SFML/System/Time.hpp>
 
-#include "Cube.h"
+#include "../objects/Cube.h"
 
 
 class PhysicEngine

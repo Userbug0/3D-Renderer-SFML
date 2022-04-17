@@ -1,15 +1,14 @@
 #include "RenderEngine.h"
-#include "Vector3.h"
-#include "Settings.h"
+#include "../Vector3.h"
+#include "../Settings.h"
 
-#include <iostream>
 
 
 RenderEngine::RenderEngine(const sf::Color& bgColor)
 	: m_backgroundColor(bgColor), m_CameraPos(0, 0, 0)
 {
 	float AspectRatio = (float)WINDOW_HEIGHT / WINDOW_WIDTH;
-	float FovRad = 1.f / tanf(FIELD_OF_VIEW * 0.5f);
+	float FovRad = 1 / tanf((float)FIELD_OF_VIEW * 0.5f);
 	float zFar = 2000.f;
 	float zNear = 0.1f;
 
@@ -44,7 +43,7 @@ void RenderEngine::Render(sf::RenderWindow* window, Cube* cube)
 
 		if (project < 0.f)
 		{
-			int shadow = Vector3::DotProduct(light_direction, normal) * 255;
+			int shadow = (int)(Vector3::DotProduct(light_direction, normal) * 255);
 			uint8_t ushadow = shadow;
 			for (int i = 0; i < 3; ++i)
 				tri.SetVertexColor(i, { ushadow, ushadow, ushadow });

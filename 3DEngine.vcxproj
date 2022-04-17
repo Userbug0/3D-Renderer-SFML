@@ -151,21 +151,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="core\Cube.h" />
+    <ClInclude Include="core\objects\Cube.h" />
     <ClInclude Include="core\Game.h" />
     <ClInclude Include="core\Matrix.h" />
-    <ClInclude Include="core\PhysicEngine.h" />
-    <ClInclude Include="core\RenderEngine.h" />
+    <ClInclude Include="core\physics\PhysicEngine.h" />
+    <ClInclude Include="core\rendering\RenderEngine.h" />
     <ClInclude Include="core\Settings.h" />
-    <ClInclude Include="core\Triangle.h" />
+    <ClInclude Include="core\rendering\Triangle.h" />
     <ClInclude Include="core\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="core\Cube.cpp" />
+    <ClCompile Include="core\objects\Cube.cpp" />
     <ClCompile Include="core\Game.cpp" />
-    <ClCompile Include="core\PhysicEngine.cpp" />
-    <ClCompile Include="core\RenderEngine.cpp" />
-    <ClCompile Include="core\Triangle.cpp" />
+    <ClCompile Include="core\physics\PhysicEngine.cpp" />
+    <ClCompile Include="core\rendering\RenderEngine.cpp" />
+    <ClCompile Include="core\rendering\Triangle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="core\Matrix.cpp" />
     <ClCompile Include="core\Vector3.cpp" />

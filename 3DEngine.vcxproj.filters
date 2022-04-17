@@ -24,19 +24,19 @@
     <ClInclude Include="core\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\RenderEngine.h">
+    <ClInclude Include="core\rendering\RenderEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\Triangle.h">
+    <ClInclude Include="core\rendering\Triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\Cube.h">
+    <ClInclude Include="core\objects\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\PhysicEngine.h">
+    <ClInclude Include="core\physics\PhysicEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,16 +53,16 @@
     <ClCompile Include="core\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\RenderEngine.cpp">
+    <ClCompile Include="core\rendering\RenderEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\Cube.cpp">
+    <ClCompile Include="core\objects\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\Triangle.cpp">
+    <ClCompile Include="core\rendering\Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\PhysicEngine.cpp">
+    <ClCompile Include="core\physics\PhysicEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

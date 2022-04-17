@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Triangle.h"
-#include "Vector3.h"
+#include "../rendering/Triangle.h"
+#include "../Vector3.h"
 
 
 // Position: front left upper corner

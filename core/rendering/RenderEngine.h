@@ -2,9 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Cube.h"
+#include "../objects/Cube.h"
 #include "Triangle.h"
-#include "Matrix.h"
+#include "../Matrix.h"
 
 
 class RenderEngine

@@ -1,7 +1,6 @@
 #include "Triangle.h"
 
 
-
 Triangle::Triangle(const std::initializer_list<Vector3>& list)
 	: m_toDraw(sf::Triangles, 3)
 {

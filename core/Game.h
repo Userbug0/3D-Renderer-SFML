@@ -1,8 +1,8 @@
 #pragma once
 
-#include "RenderEngine.h"
-#include "PhysicEngine.h"
-#include "Cube.h"
+#include "rendering/RenderEngine.h"
+#include "physics/PhysicEngine.h"
+#include "objects/Cube.h"
 
 
 class Game

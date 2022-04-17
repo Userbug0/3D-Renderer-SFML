@@ -5,11 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Vector3.h"
-
-
-class Triangle;
-class Mesh;
+#include "../Vector3.h"
 
 
 class Triangle
