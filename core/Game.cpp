@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game.h"
+#include "objects\Cube.h"
 #include "Settings.h"
 
 
@@ -22,9 +23,13 @@ Game::Game():
 
 void Game::initObjects()
 {
-    m_cube = new Cube();
-    m_cube->Translate({ -0.5f, -0.5f, 1 });
+    Cube* cube = new Cube();
+    cube->transform.position += { -2.f, -0.5f, 3 };
+    m_objects.push_back(cube);
 
+    cube = new Cube();
+    cube->transform.position += { 1.f, -0.5f, 5 };
+    m_objects.push_back(cube);
 }
 
 
@@ -47,10 +52,10 @@ void Game::gameLoop()
     {
         handleEvent();
 
-        m_physic->Update(clock.getElapsedTime(), m_cube);
+        m_physic->Update(clock.getElapsedTime(), m_objects);
         clock.restart();
 
-        m_renderer->Render(m_window, m_cube);
+        m_renderer->Render(m_window, m_objects);
     }
 }
 
@@ -69,6 +74,10 @@ void Game::handleEvent()
 
 Game::~Game()
 {
+    for (auto& object : m_objects)
+        delete object;
+
     delete m_renderer;
+    delete m_physic;
     delete m_window;
 }

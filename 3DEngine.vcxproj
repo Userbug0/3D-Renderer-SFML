@@ -154,10 +154,12 @@
     <ClInclude Include="core\objects\Cube.h" />
     <ClInclude Include="core\Game.h" />
     <ClInclude Include="core\Matrix.h" />
+    <ClInclude Include="core\objects\GameObject.h" />
     <ClInclude Include="core\physics\PhysicEngine.h" />
     <ClInclude Include="core\rendering\RenderEngine.h" />
     <ClInclude Include="core\Settings.h" />
     <ClInclude Include="core\rendering\Triangle.h" />
+    <ClInclude Include="core\Transform.h" />
     <ClInclude Include="core\Vector3.h" />
   </ItemGroup>
   <ItemGroup>

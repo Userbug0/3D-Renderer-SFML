@@ -37,13 +37,15 @@ public:
 	Mesh(const std::initializer_list<Triangle>& list);
 	~Mesh() = default;
 
-	Triangle operator[] (size_t index) const { return m_array[index]; }
-	Triangle& operator[] (size_t index) { return m_array[index]; } 
+	inline Triangle operator[] (size_t index) const { return m_array[index]; }
+	inline Triangle& operator[] (size_t index) { return m_array[index]; } 
 
-	auto begin() { return m_array.begin(); }
-	auto end() { return m_array.end(); }
+	inline void AddTriangle(const Triangle& tri) { m_array.push_back(tri); ++m_size; }
 
-	size_t size() { return m_size; };
+	inline auto begin() { return m_array.begin(); }
+	inline auto end() { return m_array.end(); }
+
+	inline size_t size() const { return m_size; };
 
 private:
 	std::vector<Triangle> m_array;

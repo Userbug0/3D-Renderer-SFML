@@ -1,43 +1,36 @@
 #include "Cube.h"
 
+#include "../Settings.h"
+
 
 Cube::Cube()
 {
-	m_triangles =
-	{
-		// FRONT
-		{ {0.f, 0.f, 0.f},  {0.f, 1.f, 0.f},   {1.f, 1.f, 0.f } },
-		{ {0.f, 0.f, 0.f},  {1.f, 1.f, 0.f},   {1.f, 0.f, 0.f} },
+	// FRONT
+	AddTriangle({ {0.f, 0.f, 0.f},  {0.f, 1.f, 0.f},   {1.f, 1.f, 0.f } });
+	AddTriangle({ {0.f, 0.f, 0.f},  {1.f, 1.f, 0.f},   {1.f, 0.f, 0.f} });
 
-		//RIGHT
-		{ {1.f, 0.f, 0.f},  {1.f, 1.f, 0.f},   {1.f, 1.f, 1.f } },
-		{ {1.f, 0.f, 0.f},  {1.f, 1.f, 1.f},   {1.f, 0.f, 1.f} },
+	//RIGHT
+	AddTriangle({ {1.f, 0.f, 0.f},  {1.f, 1.f, 0.f},   {1.f, 1.f, 1.f } });
+	AddTriangle({ {1.f, 0.f, 0.f},  {1.f, 1.f, 1.f},   {1.f, 0.f, 1.f} });
 
-		// BEHIND
-		{ {1.f, 0.f, 1.f},  {1.f, 1.f, 1.f},   {0.f, 1.f, 1.f } },
-		{ {1.f, 0.f, 1.f},  {0.f, 1.f, 1.f},   {0.f, 0.f, 1.f} },
+	// BEHIND
+	AddTriangle({ {1.f, 0.f, 1.f},  {1.f, 1.f, 1.f},   {0.f, 1.f, 1.f } });
+	AddTriangle({ {1.f, 0.f, 1.f},  {0.f, 1.f, 1.f},   {0.f, 0.f, 1.f} });
 
-		// LEFT
-		{ {0.f, 0.f, 1.f},  {0.f, 1.f, 1.f},   {0.f, 1.f, 0.f } },
-		{ {0.f, 0.f, 1.f},  {0.f, 1.f, 0.f},   {0.f, 0.f, 0.f} },
+	// LEFT
+	AddTriangle({ {0.f, 0.f, 1.f},  {0.f, 1.f, 1.f},   {0.f, 1.f, 0.f } });
+	AddTriangle({ {0.f, 0.f, 1.f},  {0.f, 1.f, 0.f},   {0.f, 0.f, 0.f} });
 
-		// UP
-		{ {0.f, 1.f, 0.f },   {0.f, 1.f, 1.f},  {1.f, 1.f, 1.f} },
-		{ {0.f, 1.f, 0.f },   {1.f, 1.f, 1.f},  {1.f, 1.f, 0.f} },
+	// UP
+	AddTriangle({ {0.f, 1.f, 0.f },   {0.f, 1.f, 1.f},  {1.f, 1.f, 1.f} });
+	AddTriangle({ {0.f, 1.f, 0.f },   {1.f, 1.f, 1.f},  {1.f, 1.f, 0.f} });
 
-		// DOWN
-		{ {1.f, 0.f, 1.f },   {0.f, 0.f, 1.f},  {0.f, 0.f, 0.f} },
-		{ {1.f, 0.f, 1.f },   {0.f, 0.f, 0.f},  {1.f, 0.f, 0.f} },
-	};
+	// DOWN
+	AddTriangle({ {1.f, 0.f, 1.f },   {0.f, 0.f, 1.f},  {0.f, 0.f, 0.f} });
+	AddTriangle({ {1.f, 0.f, 1.f },   {0.f, 0.f, 0.f},  {1.f, 0.f, 0.f} });
+
+
+	SetOrigin({ 0.5f, 0.5f, 0.5f });
+	transform.scaling = {0.5f * (float)WINDOW_WIDTH, 0.5f * (float)WINDOW_HEIGHT, 1};
 }
 
-
-void Cube::Translate(const Vector3& offset)
-{
-	for (auto& tri : m_triangles)
-	{
-		tri[0] += offset;
-		tri[1] += offset;
-		tri[2] += offset;
-	}
-}

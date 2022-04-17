@@ -2,7 +2,7 @@
 
 #include "rendering/RenderEngine.h"
 #include "physics/PhysicEngine.h"
-#include "objects/Cube.h"
+#include "objects/GameObject.h"
 
 
 class Game
@@ -18,7 +18,7 @@ private:
 	void handleEvent();
 
 	void initObjects();
-	Cube* m_cube;
+	std::vector<GameObject*> m_objects;
 
 	bool m_running;
 	sf::RenderWindow* m_window;

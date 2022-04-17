@@ -259,7 +259,7 @@ Matrix<T>& Matrix<T>::operator-=(const Matrix<T>& other)
 }
 
 
-//      This function Does not memeber of class
+//      This function does not member of class
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Matrix<T>& matrix)
 {

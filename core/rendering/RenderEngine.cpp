@@ -20,43 +20,72 @@ RenderEngine::RenderEngine(const sf::Color& bgColor)
 }
 
 
-void RenderEngine::Render(sf::RenderWindow* window, Cube* cube)
+void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject*>& objects)
 {
 	window->clear(m_backgroundColor);
 
-	cube->AddRotation({ 0.005f, -0.005f, 0.005f });
-	Vector3 rotation = cube->getRotation();
-
-
-	Vector3 light_direction = { 0, 0, -1 };
-	light_direction.normalize();
-
-
-	for (size_t i = 0; i < cube->NumOfTrinagles(); ++i)
+	for (auto& object : objects)
 	{
-		Triangle tri = cube->getTriangle(i);
-
-		rotateTriangle(tri, rotation);
-
-		Vector3 normal = tri.GetNormal();
-		float project = Vector3::DotProduct(normal, tri[0] - m_CameraPos);
-
-		if (project < 0.f)
-		{
-			int shadow = (int)(Vector3::DotProduct(light_direction, normal) * 255);
-			uint8_t ushadow = shadow;
-			for (int i = 0; i < 3; ++i)
-				tri.SetVertexColor(i, { ushadow, ushadow, ushadow });
-
-			projectTriangle(tri);
-			scaleTriangle(tri);
-
-			tri.Draw(window);
-		}
-
+		object->transform.rotation += { 0.005f, -0.005f, 0.005f };
+		renderObject(window, object);
 	}
 
 	window->display();
+}
+
+
+void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
+{
+	Vector3 rotation = object->transform.rotation;
+	Vector3 light_direction = { 0, 0, -1 };
+
+
+	for (size_t i = 0; i < object->GetNumOfTriangles(); ++i)
+	{
+		Triangle tri = object->GetTriangle(i);
+
+		translateTriangle(tri, object->transform.position);
+
+		if(rotation.getLength() != 0)
+			rotateTriangle(tri, rotation, object->transform.position + object->GetOrigin());
+
+		if (isVisible(tri) == true)
+		{
+			applySimpleLight(tri, light_direction);
+
+			projectTriangle(tri);
+			scaleTriangle(tri, object->transform.scaling);
+
+			tri.Draw(window);
+		}
+	}
+}
+
+
+bool RenderEngine::isVisible(const Triangle& tri)
+{
+	Vector3 normal = tri.GetNormal();
+	float project = Vector3::DotProduct(normal, tri[0] - m_CameraPos);
+	return project <= 0.f;
+}
+
+
+void RenderEngine::applySimpleLight(Triangle& tri, const Vector3& light_dir)
+{
+	Vector3 normal = tri.GetNormal();
+	int shadow = (int)(Vector3::DotProduct(light_dir, normal) * 255);
+	uint8_t ushadow = shadow;
+	for (uint8_t i = 0; i < 3; ++i)
+		tri.SetVertexColor(i, { ushadow, ushadow, ushadow });
+}
+
+
+void RenderEngine::translateTriangle(Triangle& tri, const Vector3& position)
+{
+	for (uint8_t i = 0; i < 3; ++i)
+	{
+		tri[i] += position;
+	}
 }
 
 
@@ -66,28 +95,28 @@ void RenderEngine::projectTriangle(Triangle& tri)
 	{
 		tri[i].ApplyMultiplication(m_projectionMatrix);
 	}
-
 }
 
 
-void RenderEngine::scaleTriangle(Triangle& tri)
+void RenderEngine::scaleTriangle(Triangle& tri, const Vector3& scale)
 {
 	for (uint8_t i = 0; i < 3; ++i)
 	{
 		tri[i].x += 1.f;
-		tri[i].x *= 0.5f * (float)WINDOW_WIDTH;
+		tri[i].x *= scale.x;
 
 		tri[i].y += 1.f;
-		tri[i].y *= 0.5f * (float)WINDOW_HEIGHT;
+		tri[i].y *= scale.y;
+
+		tri[i].z += 1.f;
+		tri[i].z *= scale.z;
 	}
 
 }
 
 
-void RenderEngine::rotateTriangle(Triangle& tri, const Vector3& rotation)
+void RenderEngine::rotateTriangle(Triangle& tri, const Vector3& rotation, const Vector3& relative)
 {
-	Vector3 relative = Vector3(-0.5f, -0.5f, 1) + Vector3(0.5f, 0.5f, 0.5f);
-
 	float sinx = sinf(rotation.x);
 	float siny = sinf(rotation.y);
 	float sinz = sinf(rotation.z);
