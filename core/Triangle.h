@@ -24,8 +24,9 @@ public:
 	Vector3 operator[] (size_t index) const { return m_points[index]; } 
 	Vector3& operator[] (size_t index) { return m_points[index]; } 
 	
+	void SetVertexColor(size_t i, const sf::Color& color);
 	// \return Normalized vector
-	Vector3 GetNormal(); 
+	Vector3 GetNormal() const; 
 
 private:
 	Vector3 m_points[3];

@@ -9,8 +9,8 @@ RenderEngine::RenderEngine(const sf::Color& bgColor)
 	: m_backgroundColor(bgColor), m_CameraPos(0, 0, 0)
 {
 	float AspectRatio = (float)WINDOW_HEIGHT / WINDOW_WIDTH;
-	float FovRad = 1 / tanf(FIELD_OF_VIEW * 0.5f);
-	float zFar = 2000;
+	float FovRad = 1.f / tanf(FIELD_OF_VIEW * 0.5f);
+	float zFar = 2000.f;
 	float zNear = 0.1f;
 
 	m_projectionMatrix[0][0] = AspectRatio * FovRad;
@@ -28,6 +28,11 @@ void RenderEngine::Render(sf::RenderWindow* window, Cube* cube)
 	cube->AddRotation({ 0.005f, -0.005f, 0.005f });
 	Vector3 rotation = cube->getRotation();
 
+
+	Vector3 light_direction = { 0, 0, -1 };
+	light_direction.normalize();
+
+
 	for (size_t i = 0; i < cube->NumOfTrinagles(); ++i)
 	{
 		Triangle tri = cube->getTriangle(i);
@@ -37,8 +42,13 @@ void RenderEngine::Render(sf::RenderWindow* window, Cube* cube)
 		Vector3 normal = tri.GetNormal();
 		float project = Vector3::DotProduct(normal, tri[0] - m_CameraPos);
 
-		if (project < 0)
+		if (project < 0.f)
 		{
+			int shadow = Vector3::DotProduct(light_direction, normal) * 255;
+			uint8_t ushadow = shadow;
+			for (int i = 0; i < 3; ++i)
+				tri.SetVertexColor(i, { ushadow, ushadow, ushadow });
+
 			projectTriangle(tri);
 			scaleTriangle(tri);
 
