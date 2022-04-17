@@ -17,9 +17,12 @@ public:
 	void Render(sf::RenderWindow* window, Cube* cube);
 
 private:
+	Vector3 m_CameraPos;
+
+
 	void projectTriangle(Triangle& tri);
 	void scaleTriangle(Triangle& tri);
-
+	void rotateTriangle(Triangle& tri, const Vector3& rotation);
 
 	Matrix4x4 m_projectionMatrix;
 	sf::Color m_backgroundColor;

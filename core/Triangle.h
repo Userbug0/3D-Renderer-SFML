@@ -23,6 +23,9 @@ public:
 
 	Vector3 operator[] (size_t index) const { return m_points[index]; } 
 	Vector3& operator[] (size_t index) { return m_points[index]; } 
+	
+	// \return Normalized vector
+	Vector3 GetNormal(); 
 
 private:
 	Vector3 m_points[3];

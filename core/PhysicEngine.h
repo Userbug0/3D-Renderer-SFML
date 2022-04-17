@@ -12,7 +12,8 @@ public:
 	~PhysicEngine() = default;
 
 	void Update(const sf::Time& elapsedTime, Cube* cube);
+	void Start();
 
 private:
-	void RotatePoint(Vector3& point, const Vector3& rotation);
+
 };

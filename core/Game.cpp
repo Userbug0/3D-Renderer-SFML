@@ -24,7 +24,6 @@ void Game::initObjects()
 {
     m_cube = new Cube();
     m_cube->Translate({ -0.5f, -0.5f, 1 });
-    m_cube->AddRotation({ 0, 0.005f, 0 });
 
 }
 
@@ -32,6 +31,7 @@ void Game::initObjects()
 void Game::Start()
 {
     m_renderer->Start();
+    m_physic->Start();
 
     m_running = true;
 

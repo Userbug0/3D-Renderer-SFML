@@ -6,7 +6,7 @@
 
 
 RenderEngine::RenderEngine(const sf::Color& bgColor)
-	: m_backgroundColor(bgColor)
+	: m_backgroundColor(bgColor), m_CameraPos(0, 0, 0)
 {
 	float AspectRatio = (float)WINDOW_HEIGHT / WINDOW_WIDTH;
 	float FovRad = 1 / tanf(FIELD_OF_VIEW * 0.5f);
@@ -25,15 +25,25 @@ void RenderEngine::Render(sf::RenderWindow* window, Cube* cube)
 {
 	window->clear(m_backgroundColor);
 
+	cube->AddRotation({ 0.005f, -0.005f, 0.005f });
+	Vector3 rotation = cube->getRotation();
 
 	for (size_t i = 0; i < cube->NumOfTrinagles(); ++i)
 	{
 		Triangle tri = cube->getTriangle(i);
 
-		projectTriangle(tri);
-		scaleTriangle(tri);
+		rotateTriangle(tri, rotation);
 
-		tri.Draw(window);
+		Vector3 normal = tri.GetNormal();
+		float project = Vector3::DotProduct(normal, tri[0] - m_CameraPos);
+
+		if (project < 0)
+		{
+			projectTriangle(tri);
+			scaleTriangle(tri);
+
+			tri.Draw(window);
+		}
 
 	}
 
@@ -43,7 +53,7 @@ void RenderEngine::Render(sf::RenderWindow* window, Cube* cube)
 
 void RenderEngine::projectTriangle(Triangle& tri)
 {
-	for (int i = 0; i < 3; ++i)
+	for (uint8_t i = 0; i < 3; ++i)
 	{
 		tri[i].ApplyMultiplication(m_projectionMatrix);
 	}
@@ -53,7 +63,7 @@ void RenderEngine::projectTriangle(Triangle& tri)
 
 void RenderEngine::scaleTriangle(Triangle& tri)
 {
-	for (int i = 0; i < 3; ++i)
+	for (uint8_t i = 0; i < 3; ++i)
 	{
 		tri[i].x += 1.f;
 		tri[i].x *= 0.5f * (float)WINDOW_WIDTH;
@@ -62,6 +72,40 @@ void RenderEngine::scaleTriangle(Triangle& tri)
 		tri[i].y *= 0.5f * (float)WINDOW_HEIGHT;
 	}
 
+}
+
+
+void RenderEngine::rotateTriangle(Triangle& tri, const Vector3& rotation)
+{
+	Vector3 relative = Vector3(-0.5f, -0.5f, 1) + Vector3(0.5f, 0.5f, 0.5f);
+
+	float sinx = sinf(rotation.x);
+	float siny = sinf(rotation.y);
+	float sinz = sinf(rotation.z);
+
+	float cosx = cosf(rotation.x);
+	float cosy = cosf(rotation.y);
+	float cosz = cosf(rotation.z);
+
+
+	for (uint8_t i = 0; i < 3; ++i)
+	{
+		Vector3 original = tri[i] - relative;
+
+		tri[i].x = original.x * (cosz * cosy) +
+			original.y * (cosz * siny * sinx - sinz * cosx) +
+			original.z * (cosz * siny * cosx + sinz * sinx);
+
+		tri[i].y = original.x * (sinz * cosy) +
+			original.y * (sinz * siny * sinx + cosz * cosx) +
+			original.z * (sinz * siny * cosx - cosz * sinx);
+
+		tri[i].z = original.x * (-siny) +
+			original.y * (cosy * sinx) +
+			original.z * (cosy * cosx);
+
+		tri[i] += relative;
+	}
 }
 
 
