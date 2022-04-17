@@ -11,7 +11,7 @@ Game::Game():
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    m_window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Fun", sf::Style::Close, settings);
+    m_window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "3D", sf::Style::Close, settings);
     m_window->setFramerateLimit(FPS);
 
 	m_renderer = new RenderEngine();
@@ -24,11 +24,14 @@ Game::Game():
 void Game::initObjects()
 {
     Cube* cube = new Cube();
-    cube->transform.position += { -2.f, -0.5f, 3 };
+    cube->transform.position += { -0.5f, -0.5f, 2 };
+    cube->SetColor(sf::Color::Cyan);
     m_objects.push_back(cube);
 
     cube = new Cube();
-    cube->transform.position += { 1.f, -0.5f, 5 };
+    cube->transform.position += { -0.5f, -0.5f, 5 };
+    cube->transform.rotation += {1, 1, 1};
+    cube->SetColor(sf::Color::Green);
     m_objects.push_back(cube);
 }
 

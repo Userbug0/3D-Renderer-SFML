@@ -12,10 +12,11 @@ public:
 	inline Triangle& GetTriangle(size_t i)       { return m_triangles[i];   }
 	inline Triangle GetTriangle(size_t i)  const { return m_triangles[i]; }
 
-	inline void AddTriangle(const Triangle& tri) { m_triangles.AddTriangle(tri); ++m_NumOfTriangles; }
-
 	inline Vector3 GetOrigin() 			   const { return m_origin; }
-	inline void SetOrigin(const Vector3& point)  { m_origin = point; }
+	inline void SetOrigin(const Vector3& point) { m_origin = point; }
+
+	void AddTriangle(const Triangle& tri);
+	void SetColor(const sf::Color& color);
 
 	Transform transform;
 

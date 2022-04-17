@@ -34,6 +34,13 @@ Vector3 Triangle::GetNormal() const
 void Triangle::SetVertexColor(size_t i, const sf::Color& color)
 {
 	m_toDraw[i].color = color;
+
+}
+
+
+sf::Color Triangle::GetVertexColor(size_t i)
+{
+	return m_toDraw[i].color;
 }
 
 

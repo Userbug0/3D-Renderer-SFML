@@ -73,10 +73,13 @@ bool RenderEngine::isVisible(const Triangle& tri)
 void RenderEngine::applySimpleLight(Triangle& tri, const Vector3& light_dir)
 {
 	Vector3 normal = tri.GetNormal();
-	int shadow = (int)(Vector3::DotProduct(light_dir, normal) * 255);
-	uint8_t ushadow = shadow;
+	float shadow = Vector3::DotProduct(light_dir, normal);
 	for (uint8_t i = 0; i < 3; ++i)
-		tri.SetVertexColor(i, { ushadow, ushadow, ushadow });
+	{
+		sf::Color origin = tri.GetVertexColor(i);
+		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow), (uint8_t)(origin.g * shadow), (uint8_t)(origin.b * shadow) });
+	}
+
 }
 
 

@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="core\objects\Cube.cpp" />
     <ClCompile Include="core\Game.cpp" />
+    <ClCompile Include="core\objects\GameObject.cpp" />
     <ClCompile Include="core\physics\PhysicEngine.cpp" />
     <ClCompile Include="core\rendering\RenderEngine.cpp" />
     <ClCompile Include="core\rendering\Triangle.cpp" />
