@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\rendering">
+      <UniqueIdentifier>{41ab57e9-b805-4bf5-8492-b971a90959d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\physics">
+      <UniqueIdentifier>{0b18157d-238d-41f9-adc1-8ba47fe16886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects">
+      <UniqueIdentifier>{6bcdfdd4-a6d2-498c-952f-f8b4161e348c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rendering">
+      <UniqueIdentifier>{20f9735c-8f7f-468c-b2aa-82e863a55011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physics">
+      <UniqueIdentifier>{ad56fcf7-4a66-4e5a-86f9-e99289523125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects">
+      <UniqueIdentifier>{780811ff-8bb6-454b-ad8d-6f9492253245}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Vector3.h">
@@ -24,19 +42,7 @@
     <ClInclude Include="core\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\rendering\RenderEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\Settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\rendering\Triangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\objects\Cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\physics\PhysicEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\objects\GameObject.h">
@@ -44,6 +50,18 @@
     </ClInclude>
     <ClInclude Include="core\Transform.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\physics\PhysicEngine.h">
+      <Filter>Header Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="core\objects\Cube.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="core\rendering\RenderEngine.h">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="core\rendering\Triangle.h">
+      <Filter>Header Files\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -59,23 +77,25 @@
     <ClCompile Include="core\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\rendering\RenderEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\objects\Cube.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\objects</Filter>
     </ClCompile>
     <ClCompile Include="core\rendering\Triangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\physics\PhysicEngine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
     <ClCompile Include="core\objects\GameObject.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="core\physics\PhysicEngine.cpp">
+      <Filter>Source Files\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="core\rendering\RenderEngine.cpp">
+      <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="core\Matrix.tpp" />
+    <None Include="core\Matrix.tpp">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
