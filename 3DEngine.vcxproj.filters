@@ -63,6 +63,9 @@
     <ClInclude Include="core\objects\GameObject.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
+    <ClInclude Include="core\Vector4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Vector3.cpp">
@@ -91,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="core\rendering\RenderEngine.cpp">
       <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="core\Vector4.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
