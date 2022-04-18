@@ -25,9 +25,9 @@ struct Vector3{
 
     operator Matrix<float>() const {return Matrix<float>{{x, y, z}};}
 
-    Vector3& normalize();
-    float getLength() const {return std::sqrt(x * x + y * y + z * z);}
-    Vector3 getNormalized() const;
+    Vector3& Normalize();
+    float GetLength() const {return std::sqrt(x * x + y * y + z * z);}
+    Vector3 GetNormalized() const;
     Vector3& ApplyMultiplication(const Matrix4x4& matrix);
 
     friend Vector3 operator-(const Vector3& v){return Vector3{-v.x, -v.y, -v.z};}

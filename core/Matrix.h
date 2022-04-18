@@ -10,6 +10,7 @@ class Matrix4x4;
 class InvalidMatrixSizeException;
 
 
+// Simple 2D matrix
 // T is expected to be a numeric type such as int, float, unsigned int...
 template <typename T = float>
 class Matrix
@@ -27,12 +28,12 @@ public:
     virtual ~Matrix() = default;
 
     // apply func for each element (Array[i][j] = func(Array[i][j]))
-    Matrix<T>& apply(T (* func)(T));
-    Matrix<T>& transpose();
-    Matrix<T>& resize(int new_height, int new_width);
+    Matrix<T>& Apply(T (* func)(T));
+    Matrix<T>& Transpose();
+    Matrix<T>& Resize(int new_height, int new_width);
 
-    size_t getHeight() const {return m_height;}
-    size_t getWidth() const {return m_width;}
+    size_t GetHeight() const {return m_height;}
+    size_t GetWidth() const {return m_width;}
     std::vector<T> operator[] (size_t index) const {return Array[index];} // read
     std::vector<T>& operator[] (size_t index) {return Array[index];}      // write
 
@@ -63,7 +64,7 @@ protected:
     // Array[i][j] = func(m[i][j], k)
     Matrix<T>& apply(const Matrix<T>& m, T k, T (*func)(T, T));
     // expects that row.size() = column.size()
-    static T DotProduct(const std::vector<T>& row, const std::vector<T>& column);
+    static T dotProduct(const std::vector<T>& row, const std::vector<T>& column);
 
 private:
     size_t m_height;
@@ -84,7 +85,7 @@ public:
     virtual ~Matrix4x4() = default;
 
 private:
-    using Matrix::resize;
+    using Matrix::Resize;
 };
 
 

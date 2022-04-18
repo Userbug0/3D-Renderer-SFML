@@ -27,7 +27,7 @@ void Triangle::Draw(sf::RenderWindow* window)
 Vector3 Triangle::GetNormal() const
 {
 	Vector3 res = Vector3::CrossProduct(m_points[1] - m_points[0], m_points[2] - m_points[0]);
-	return res.normalize();
+	return res.Normalize();
 }
 
 

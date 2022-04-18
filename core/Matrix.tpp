@@ -43,7 +43,7 @@ Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>>& list):
 //////////////////////////////////////////////////////////
 
 template <typename T>
-Matrix<T>& Matrix<T>::apply(T (*func)(T))
+Matrix<T>& Matrix<T>::Apply(T (*func)(T))
 {
     for(size_t i = 0; i < m_height; i++){
         for(size_t j = 0; j < m_width; j++){
@@ -55,7 +55,7 @@ Matrix<T>& Matrix<T>::apply(T (*func)(T))
 
 
 template <typename T>
-Matrix<T>& Matrix<T>::resize(int new_height, int new_width)
+Matrix<T>& Matrix<T>::Resize(int new_height, int new_width)
 {
     m_height = new_height;
     m_width = new_width;
@@ -67,7 +67,7 @@ Matrix<T>& Matrix<T>::resize(int new_height, int new_width)
 
 
 template <typename T>
-Matrix<T>& Matrix<T>::transpose()
+Matrix<T>& Matrix<T>::Transpose()
 {
     Matrix<T> newMat(m_width, m_height);
     for(size_t i = 0; i < m_height; i++){
@@ -75,7 +75,7 @@ Matrix<T>& Matrix<T>::transpose()
             newMat[j][i] = Array[i][j];
         }
     }
-    resize(m_width, m_height);
+    Resize(m_width, m_height);
     for(size_t i = 0; i < m_height; i++){
         for(size_t j = 0; j < m_width; j++){
             Array[i][j] = newMat[i][j];
@@ -94,11 +94,11 @@ Matrix<T>& Matrix<T>::transpose()
 template <typename T>
 Matrix<T>& Matrix<T>::apply(const Matrix<T>& m1, const Matrix<T>& m2, T (*func)(T, T))
 {
-    if(m1.getHeight() != m_height || m1.getWidth() != m_width)
-        throw InvalidMatrixSizeException(m_height, m_width, m1.getHeight(), m1.getWidth(), "Operation Failed");
+    if(m1.GetHeight() != m_height || m1.GetWidth() != m_width)
+        throw InvalidMatrixSizeException(m_height, m_width, m1.GetHeight(), m1.GetWidth(), "Operation Failed");
 
-    if(m2.getHeight() != m_height || m2.getWidth() != m_width)
-        throw InvalidMatrixSizeException(m_height, m_width, m2.getHeight(), m2.getWidth(), "Operation Failed");
+    if(m2.GetHeight() != m_height || m2.GetWidth() != m_width)
+        throw InvalidMatrixSizeException(m_height, m_width, m2.GetHeight(), m2.GetWidth(), "Operation Failed");
 
     for(size_t i = 0; i < m_height; i++){
         for(size_t j = 0; j < m_width; j++){
@@ -112,8 +112,8 @@ Matrix<T>& Matrix<T>::apply(const Matrix<T>& m1, const Matrix<T>& m2, T (*func)(
 template <typename T>
 Matrix<T>& Matrix<T>::apply(const Matrix<T>& m, T k, T (*func)(T, T))
 {
-    if(m.getHeight() != m_height || m.getWidth() != m_width)
-        throw InvalidMatrixSizeException(m_height, m_width, m.getHeight(), m.getWidth(), "Operation Failed");
+    if(m.GetHeight() != m_height || m.GetWidth() != m_width)
+        throw InvalidMatrixSizeException(m_height, m_width, m.GetHeight(), m.GetWidth(), "Operation Failed");
 
     for(size_t i = 0; i < m_height; i++){
         for(size_t j = 0; j < m_width; j++){
@@ -126,7 +126,7 @@ Matrix<T>& Matrix<T>::apply(const Matrix<T>& m, T k, T (*func)(T, T))
 
 
 template <typename T>
-T Matrix<T>::DotProduct(const std::vector<T>& row, const std::vector<T>& column)
+T Matrix<T>::dotProduct(const std::vector<T>& row, const std::vector<T>& column)
 {
     T sum = 0;
     for(size_t i = 0; i < row.size(); i++){
@@ -176,19 +176,19 @@ Matrix<T>& Matrix<T>::operator/=(T k)
 template <typename T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T>& other)
 {
-    if (other.getHeight() != m_width)
-        throw InvalidMatrixSizeException(m_height, m_width, other.getHeight(), other.getWidth(), "Operation multiply matrices Failed");
+    if (other.GetHeight() != m_width)
+        throw InvalidMatrixSizeException(m_height, m_width, other.GetHeight(), other.GetWidth(), "Operation multiply matrices Failed");
 
     size_t new_height = m_height;
-    size_t new_width = other.getWidth();
+    size_t new_width = other.GetWidth();
     Matrix<T> newMat{ new_height, new_width };
 
     Matrix<T> transposed = other;
-    transposed.transpose();
+    transposed.Transpose();
 
     for (size_t i = 0; i < new_height; i++) {
         for (size_t j = 0; j < new_width; j++) {
-            newMat[i][j] = DotProduct(Array[i], transposed[j]);
+            newMat[i][j] = dotProduct(Array[i], transposed[j]);
         }
     }
     return newMat;
@@ -264,8 +264,8 @@ template <typename T>
 std::ostream& operator<<(std::ostream& out, const Matrix<T>& matrix)
 {
     out << "Matrix(";
-    size_t width = matrix.getWidth();
-    size_t height = matrix.getHeight();
+    size_t width = matrix.GetWidth();
+    size_t height = matrix.GetHeight();
     for (size_t i = 0; i < height; i++) {
         for (size_t j = 0; j < width; j++) {
             out << matrix[i][j];

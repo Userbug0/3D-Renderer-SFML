@@ -6,24 +6,24 @@
 Matrix4x4::Matrix4x4(const std::initializer_list<std::initializer_list<float>>& list):
     Matrix(list)
 {
-    if(getHeight() != 4 || getWidth() != 4)
-        throw InvalidMatrixSizeException(4, 4, getHeight(), getWidth(), "Invalid initialization of Matrix4x4 with initializer list");
+    if(GetHeight() != 4 || GetWidth() != 4)
+        throw InvalidMatrixSizeException(4, 4, GetHeight(), GetWidth(), "Invalid initialization of Matrix4x4 with initializer list");
 }
 
 
 Matrix4x4::Matrix4x4(const Matrix<float>& matrix):
     Matrix(matrix)
 {
-    if(getHeight() != 4 || getWidth() != 4)
-        throw InvalidMatrixSizeException(4, 4, getHeight(), getWidth(), "Invalid initialization of Matrix4x4 by copy of Matrix");
+    if(GetHeight() != 4 || GetWidth() != 4)
+        throw InvalidMatrixSizeException(4, 4, GetHeight(), GetWidth(), "Invalid initialization of Matrix4x4 by copy of Matrix");
 }
 
 
 Matrix4x4::Matrix4x4(Matrix<float>&& matrix):
     Matrix(matrix)
 {
-    if(getHeight() != 4 || getWidth() != 4)
-        throw InvalidMatrixSizeException(4, 4, getHeight(), getWidth(), "Invalid initialization of Matrix4x4 by move of Matrix");
+    if(GetHeight() != 4 || GetWidth() != 4)
+        throw InvalidMatrixSizeException(4, 4, GetHeight(), GetWidth(), "Invalid initialization of Matrix4x4 by move of Matrix");
 }
 
 

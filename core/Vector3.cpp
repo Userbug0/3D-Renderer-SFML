@@ -6,9 +6,9 @@
 
 Vector3::Vector3(const Matrix<float>& matrix)
 {
-    if(matrix.getHeight() != 1 || matrix.getWidth() != 3)
+    if(matrix.GetHeight() != 1 || matrix.GetWidth() != 3)
         throw InvalidMatrixSizeException("Vector3 cannot be copied by this matrix (height = " + \
-                            std::to_string(matrix.getHeight()) + ", width = " + std::to_string(matrix.getWidth()) + ")\n");
+                            std::to_string(matrix.GetHeight()) + ", width = " + std::to_string(matrix.GetWidth()) + ")\n");
     x = matrix[0][0];
     y = matrix[0][1];
     z = matrix[0][2];
@@ -32,9 +32,25 @@ Vector3& Vector3::ApplyMultiplication(const Matrix4x4& mat)
 }
 
 
+Vector3 Vector3::GetNormalized() const
+{
+    float l = GetLength();
+    return Vector3{ x / l, y / l, z / l };
+}
+
+
+Vector3& Vector3::Normalize()
+{
+    float l = GetLength();
+    x /= l, y /= l, z /= l;
+    return *this;
+}
+
+
+
 float Vector3::Distance(const Vector3& v1, const Vector3& v2)
 {
-    return (v1 - v2).getLength();
+    return (v1 - v2).GetLength();
 }
 
 
@@ -42,7 +58,7 @@ Vector3 Vector3::Reflect(const Vector3& ToReflect, const Vector3& v)
 {
     Vector3 res = ToReflect;
 
-    float m = v.getLength();
+    float m = v.GetLength();
     float temp = Vector3::DotProduct(res, v) / (m * m);
 
     res -= 2 * temp * v;
@@ -110,21 +126,6 @@ Vector3& Vector3::operator-=(const Vector3& other)
     x -= other.x;
     y -= other.y;
     z -= other.z;
-    return *this;
-}
-
-
-Vector3 Vector3::getNormalized() const
-{
-    float l = getLength();
-    return Vector3{x / l, y / l, z / l};
-}
-
-
-Vector3& Vector3::normalize()
-{
-    float l = getLength();
-    x /= l, y /= l, z /= l;
     return *this;
 }
 

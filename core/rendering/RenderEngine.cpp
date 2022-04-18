@@ -46,7 +46,7 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 
 		translateTriangle(tri, object->transform.position);
 
-		if(rotation.getLength() != 0)
+		if(rotation.GetLength() != 0)
 			rotateTriangle(tri, rotation, object->transform.position + object->GetOrigin());
 
 		if (isVisible(tri) == true)
