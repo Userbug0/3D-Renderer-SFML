@@ -19,17 +19,6 @@ Vector3::Vector3(float X, float Y, float Z)
 }
 
 
-Vector3::Vector3(const Matrix<float>& matrix)
-{
-    if (matrix.GetHeight() != 1 || matrix.GetWidth() != 3)
-        throw InvalidMatrixSizeException("Vector3 cannot be copied by this matrix (height = " + \
-            std::to_string(matrix.GetHeight()) + ", width = " + std::to_string(matrix.GetWidth()) + ")\n");
-    x = matrix[0][0];
-    y = matrix[0][1];
-    z = matrix[0][2];
-}
-
-
 //          PUBLIC FUNCTIONS  
 /////////////////////////////////////////////////
 Vector3& Vector3::Normalize()
@@ -56,23 +45,6 @@ float Vector3::GetLength() const
 float Vector3::GetSqrLength() const
 {
     return x * x + y * y + z * z;
-}
-
-
-Vector3& Vector3::ApplyMultiplication(const Matrix4x4& mat)
-{
-    Vector3 result;
-    float w;
-
-    result.x = mat[0][0] * x + mat[1][0] * y + mat[2][0] * z + mat[3][0];
-    result.y = mat[0][1] * x + mat[1][1] * y + mat[2][1] * z + mat[3][1];
-    result.z = mat[0][2] * x + mat[1][2] * y + mat[2][2] * z + mat[3][2];
-    w = mat[0][3] * x + mat[1][3] * y + mat[2][3] * z + mat[3][3];
-
-    if (w != 0)
-        return *this = result / w;
-
-    return *this = result;
 }
 
 
@@ -115,6 +87,32 @@ float Vector3::Distance(const Vector3& v1, const Vector3& v2)
 
 //            OPERATORS
 /////////////////////////////////////////////////
+float Vector3::operator[](size_t index) const
+{
+    if (index == 0)
+        return x;
+    if (index == 1)
+        return y;
+    if (index == 2)
+        return z;
+
+    throw std::out_of_range("Vector3: Failed to get element by index: " + std::to_string(index) + "\n");
+}
+
+
+float& Vector3::operator[](size_t index)
+{
+    if (index == 0)
+        return x;
+    if (index == 1)
+        return y;
+    if (index == 2)
+        return z;
+
+    throw std::out_of_range("Vector3: Failed to get element by index: " + std::to_string(index) + "\n");
+}
+
+
 Vector3& Vector3::operator+=(const Vector3& other)
 {
     x += other.x;
@@ -230,8 +228,8 @@ Vector3 operator*(float k, const Vector3& v)
 }
 
 
-std::ostream& operator<<(std::ostream& os, const Vector3& v)
+std::ostream& operator<<(std::ostream& out, const Vector3& v)
 {
-    os << "Vector3(" << v.x << ", " << v.y << ", "  << v.z << ")" << std::endl;
-    return os;
+    out << "Vector3(" << v.x << ", " << v.y << ", "  << v.z << ")" << std::endl;
+    return out;
 }

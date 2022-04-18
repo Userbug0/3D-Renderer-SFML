@@ -1,5 +1,7 @@
 #include "Vector4.h"
 
+#include <string>
+
 
 //          CONSTRUCTORS  
 /////////////////////////////////////////////////
@@ -16,6 +18,13 @@ Vector4::Vector4(float X, float Y, float Z, float W)
 
 }
    
+
+Vector4::Vector4(const Vector3& vec3)
+    : x(vec3.x), y(vec3.y), z(vec3.z), w(1)
+{
+    
+}
+
 
 //          PUBLIC FUNCTIONS
 /////////////////////////////////////////////////
@@ -62,6 +71,42 @@ float Vector4::Distance(const Vector4& v1, const Vector4& v2)
 
 //            OPERATORS
 /////////////////////////////////////////////////
+Vector4::operator Vector3() const
+{
+    return Vector3(x, y, z);
+}
+
+
+float Vector4::operator[](size_t index) const
+{
+    if (index == 0)
+        return x;
+    if (index == 1)
+        return y;
+    if (index == 2)
+        return z;
+    if (index == 3)
+        return w;
+
+    throw std::out_of_range("Vector4: Failed to get element by index: " + std::to_string(index) + "\n");
+}
+
+
+float& Vector4::operator[](size_t index)
+{
+    if (index == 0)
+        return x;
+    if (index == 1)
+        return y;
+    if (index == 2)
+        return z;
+    if (index == 3)
+        return w;
+
+    throw std::out_of_range("Vector4: Failed to get element by index: " + std::to_string(index) + "\n");
+}
+
+
 Vector4& Vector4::operator+=(float k)
 {
     x += k; y += k; z += k; w += k;
@@ -178,8 +223,8 @@ Vector4 operator*(float k, const Vector4& v)
 }
 
 
-std::ostream& operator<<(std::ostream& os, const Vector4& v)
+std::ostream& operator<<(std::ostream& out, const Vector4& v)
 {
-    os << "Vector3(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")" << std::endl;
-    return os;
+    out << "Vector3(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")" << std::endl;
+    return out;
 }

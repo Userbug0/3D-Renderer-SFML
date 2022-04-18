@@ -4,7 +4,7 @@
 
 #include "../objects/GameObject.h"
 #include "Triangle.h"
-#include "../Matrix.h"
+#include "../Matrix4.h"
 
 
 class RenderEngine
@@ -28,7 +28,7 @@ private:
 
 	Vector3 m_CameraPos;
 
-	Matrix4x4 m_projectionMatrix;
+	Matrix4 m_projectionMatrix;
 	sf::Color m_backgroundColor;
 };
 

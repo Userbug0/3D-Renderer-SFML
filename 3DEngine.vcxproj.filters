@@ -36,7 +36,7 @@
     <ClInclude Include="core\Vector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\Matrix.h">
+    <ClInclude Include="core\Matrix4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\Game.h">
@@ -71,7 +71,7 @@
     <ClCompile Include="core\Vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\Matrix.cpp">
+    <ClCompile Include="core\Matrix4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -98,10 +98,5 @@
     <ClCompile Include="core\Vector4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="core\Matrix.tpp">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

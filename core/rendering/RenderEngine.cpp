@@ -27,7 +27,7 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 
 	for (auto& object : objects)
 	{
-		object->transform.rotation += { 0.005f, -0.005f, 0.005f };
+		object->transform.rotation += { 0.02f, -0.02f, 0.02f };
 		renderObject(window, object);
 	}
 
@@ -72,7 +72,6 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 
 	for(auto& tri: allTriangles)
 		tri.Draw(window);
-
 }
 
 
@@ -91,7 +90,7 @@ void RenderEngine::applySimpleLight(Triangle& tri, const Vector3& light_dir)
 	for (uint8_t i = 0; i < 3; ++i)
 	{
 		sf::Color origin = tri.GetVertexColor(i);
-		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow), (uint8_t)(origin.g * shadow), (uint8_t)(origin.b * shadow) });
+		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow + 1), (uint8_t)(origin.g * shadow + 1), (uint8_t)(origin.b * shadow + 1) });
 	}
 
 }
@@ -110,7 +109,7 @@ void RenderEngine::projectTriangle(Triangle& tri)
 {
 	for (uint8_t i = 0; i < 3; ++i)
 	{
-		tri[i].ApplyMultiplication(m_projectionMatrix);
+		Matrix4::ApplyMultiplication(tri[i], m_projectionMatrix);
 	}
 }
 
@@ -128,7 +127,6 @@ void RenderEngine::scaleTriangle(Triangle& tri, const Vector3& scale)
 		tri[i].z += 1.f;
 		tri[i].z *= scale.z;
 	}
-
 }
 
 
