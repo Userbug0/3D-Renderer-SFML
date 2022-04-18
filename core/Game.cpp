@@ -23,16 +23,20 @@ Game::Game():
 
 void Game::initObjects()
 {
-    Cube* cube = new Cube();
-    cube->transform.position += { -0.5f, -0.5f, 2 };
-    cube->SetColor(sf::Color::Cyan);
-    m_objects.push_back(cube);
+    //Cube* cube = new Cube();
+    //cube->transform.position += { -0.5f, -0.5f, 2 };
+    //cube->SetColor(sf::Color::Cyan);
+    //m_objects.push_back(cube);
 
-    cube = new Cube();
-    cube->transform.position += { -0.5f, -0.5f, 5 };
-    cube->transform.rotation += {1, 1, 1};
-    cube->SetColor(sf::Color::Green);
-    m_objects.push_back(cube);
+    //cube = new Cube();
+    //cube->transform.position += { -0.5f, -0.5f, 5 };
+    //cube->transform.rotation += {1, 1, 1};
+    //cube->SetColor(sf::Color::Green);
+    //m_objects.push_back(cube);
+
+    GameObject* torus = new GameObject("Resources/torus.obj");
+    torus->transform.position += {-0.5f, -0.5f, 5};
+    m_objects.push_back(torus);
 }
 
 

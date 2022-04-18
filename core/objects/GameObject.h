@@ -8,6 +8,9 @@
 class GameObject
 {
 public:
+	GameObject() = default;
+	GameObject(const std::string& path);
+		
 	inline size_t GetNumOfTriangles()	   const { return m_NumOfTriangles; }
 	inline Triangle& GetTriangle(size_t i)       { return m_triangles[i];   }
 	inline Triangle GetTriangle(size_t i)  const { return m_triangles[i]; }
@@ -18,6 +21,8 @@ public:
 	void AddTriangle(const Triangle& tri);
 	void SetColor(const sf::Color& color);
 
+	bool ReadFromObjectFile(const std::string& path);
+	
 	Transform transform;
 
 private:

@@ -1,7 +1,8 @@
+#include <algorithm>
+
 #include "RenderEngine.h"
 #include "../Vector3.h"
 #include "../Settings.h"
-
 
 
 RenderEngine::RenderEngine(const sf::Color& bgColor)
@@ -26,7 +27,7 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 
 	for (auto& object : objects)
 	{
-		object->transform.rotation += { 0.005f, -0.005f, 0.005f };
+		object->transform.rotation += { 0.02f, -0.02f, 0.02f };
 		renderObject(window, object);
 	}
 
@@ -38,7 +39,8 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 {
 	Vector3 rotation = object->transform.rotation;
 	Vector3 light_direction = { 0, 0, -1 };
-
+	
+	std::vector<Triangle> allTriangles;
 
 	for (size_t i = 0; i < object->GetNumOfTriangles(); ++i)
 	{
@@ -56,9 +58,21 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 			projectTriangle(tri);
 			scaleTriangle(tri, object->transform.scaling);
 
+			allTriangles.push_back(tri);
 			tri.Draw(window);
 		}
 	}
+
+	std::sort(allTriangles.begin(), allTriangles.end(), [](const Triangle& t1, const Triangle& t2)
+		{
+			float z1 = (t1[0].z + t1[1].z + t1[2].z) / 3;
+			float z2 = (t2[0].z + t2[1].z + t2[2].z) / 3;
+			return z1 > z2;
+		});
+
+	for(auto& tri: allTriangles)
+		tri.Draw(window);
+
 }
 
 
