@@ -27,7 +27,7 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 
 	for (auto& object : objects)
 	{
-		object->transform.rotation += { 0.02f, -0.02f, 0.02f };
+		object->transform.rotation += { 0.005f, -0.005f, 0.005f };
 		renderObject(window, object);
 	}
 
