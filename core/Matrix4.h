@@ -11,7 +11,7 @@ class Matrix4
 public:
     Matrix4() = default;
     Matrix4(float value);
-    Matrix4(const std::initializer_list<std::initializer_list<float>>& list);
+    Matrix4(const std::initializer_list<Vector4>& list);
 
     Matrix4& operator=(const Matrix4& other) = default;
     Matrix4(const Matrix4& matrix)           = default;
@@ -38,7 +38,7 @@ public:
 
 public:
     inline const Vector4& operator[] (size_t index) const { return m_array[index]; }
-    inline Vector4& operator[] (size_t index)             { return m_array[index]; }
+    inline Vector4& operator[]       (size_t index)       { return m_array[index]; }
 
     Matrix4& operator+=(const Matrix4& other);
     Matrix4& operator-=(const Matrix4& other);

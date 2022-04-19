@@ -15,29 +15,20 @@ Matrix4::Matrix4(float value)
 }
 
 
-Matrix4::Matrix4(const std::initializer_list<std::initializer_list<float>>& list)
+Matrix4::Matrix4(const std::initializer_list<Vector4>& list)
 {
-    size_t i = 0;
-    size_t j = 0;
-    size_t last_width = 0;
-    for (auto& nested : list) 
-    {
-        j = 0;
-        for (auto& elem : nested) 
-        {
-            if(i > 3 || j > 3)
-                throw std::invalid_argument("Invalid initialization Matrix4 with initializer list");
-            m_array[i][j] = elem;
-            j++;
-        }
-
-        if (i != 0 && last_width != j)
-            throw std::invalid_argument("Invalid initialization Matrix4 with initializer list");
-        last_width = j;
-        i++;
-    }
-    if(i != 4 || j != 4)
+    if(list.size() != 4)
         throw std::invalid_argument("Invalid initialization Matrix4 with initializer list");
+
+    size_t i = 0;
+    for (auto& vec : list)
+    {
+        for (size_t j = 0; j < 4; ++j)
+        {
+            m_array[i][j] = vec[j];
+        }
+        ++i;
+    }
 }
 
 
@@ -58,9 +49,12 @@ Matrix4& Matrix4::Apply(float (*func)(float))
 
 Matrix4& Matrix4::Transpose()
 {
-    for (size_t i = 0; i < 4; i++) {
-        for (size_t j = 0; j < 4; j++) {
-            m_array[j][i] = m_array[i][j];
+    auto tmp = m_array;
+    for (size_t i = 0; i < 4; i++) 
+    {
+        for (size_t j = 0; j < 4; j++) 
+        {
+            m_array[j][i] = tmp[i][j];
         }
     }
     return *this;
