@@ -207,8 +207,10 @@ Matrix4 Matrix4::operator*(const Matrix4& other) const
     Matrix4 transposed = other;
     transposed.Transpose();
 
-    for (size_t i = 0; i < 4; i++) {
-        for (size_t j = 0; j < 4; j++) {
+    for (size_t i = 0; i < 4; i++) 
+    {
+        for (size_t j = 0; j < 4; j++) 
+        {
             mat[i][j] = Vector4::DotProduct(m_array[i], transposed[j]);
         }
     }
@@ -238,8 +240,10 @@ Matrix4 operator*(float k, const Matrix4& mat)
 std::ostream& operator<<(std::ostream& out, const Matrix4& mat)
 {
     out << "Matrix4(";
-    for (size_t i = 0; i < 4; i++) {
-        for (size_t j = 0; j < 4; j++) {
+    for (size_t i = 0; i < 4; i++) 
+    {
+        for (size_t j = 0; j < 4; j++) 
+        {
             out << mat[i][j];
             if (i != 4 - 1 || j != 4 - 1)
                 out << ", ";
