@@ -37,8 +37,8 @@ public:
     static void ApplyMultiplication(Vector3& vec, const Matrix4& mat);
 
 public:
-    inline Vector4 operator[] (size_t index) const { return m_array[index]; }
-    inline Vector4& operator[] (size_t index)      { return m_array[index]; }
+    inline const Vector4& operator[] (size_t index) const { return m_array[index]; }
+    inline Vector4& operator[] (size_t index)             { return m_array[index]; }
 
     Matrix4& operator+=(const Matrix4& other);
     Matrix4& operator-=(const Matrix4& other);
