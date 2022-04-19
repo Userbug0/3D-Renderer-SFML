@@ -5,12 +5,13 @@
 #include "../objects/GameObject.h"
 #include "Triangle.h"
 #include "../Matrix4.h"
+#include "Camera.h"
 
 
 class RenderEngine
 {
 public:
-	RenderEngine(const sf::Color& bgColor = sf::Color::Black);
+	RenderEngine(Camera* camera, const sf::Color& bgColor = sf::Color::Black);
 	~RenderEngine() = default;
 
 	void Start();
@@ -26,7 +27,7 @@ private:
 	void scaleTriangle(Triangle& tri, const Vector3& scale);
 	void rotateTriangle(Triangle& tri, const Vector3& rotation, const Vector3& relative);
 
-	Vector3 m_CameraPos;
+	Camera* m_Camera;
 
 	Matrix4 m_projectionMatrix;
 	sf::Color m_backgroundColor;

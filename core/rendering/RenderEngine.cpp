@@ -4,9 +4,11 @@
 #include "../Vector3.h"
 #include "../Settings.h"
 
+#include <iostream>
 
-RenderEngine::RenderEngine(const sf::Color& bgColor)
-	: m_backgroundColor(bgColor), m_CameraPos(0, 0, 0)
+
+RenderEngine::RenderEngine(Camera* camera, const sf::Color& bgColor)
+	: m_Camera(camera), m_backgroundColor(bgColor)
 {
 	float AspectRatio = (float)WINDOW_HEIGHT / WINDOW_WIDTH;
 	float FovRad = 1 / tanf((float)FIELD_OF_VIEW * 0.5f);
@@ -27,7 +29,7 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 
 	for (auto& object : objects)
 	{
-		object->transform.rotation += { 0.02f, -0.02f, 0.02f };
+		object->transform.rotation += { 0.005f, -0.005f, 0.005f };
 		renderObject(window, object);
 	}
 
@@ -78,7 +80,7 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 bool RenderEngine::isVisible(const Triangle& tri)
 {
 	Vector3 normal = tri.GetNormal();
-	float project = Vector3::DotProduct(normal, tri[0] - m_CameraPos);
+	float project = Vector3::DotProduct(normal, tri[0] - m_Camera->GetPosition());
 	return project <= 0.f;
 }
 
@@ -90,7 +92,7 @@ void RenderEngine::applySimpleLight(Triangle& tri, const Vector3& light_dir)
 	for (uint8_t i = 0; i < 3; ++i)
 	{
 		sf::Color origin = tri.GetVertexColor(i);
-		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow + 1), (uint8_t)(origin.g * shadow + 1), (uint8_t)(origin.b * shadow + 1) });
+		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow), (uint8_t)(origin.g * shadow), (uint8_t)(origin.b * shadow) });
 	}
 
 }
@@ -124,8 +126,8 @@ void RenderEngine::scaleTriangle(Triangle& tri, const Vector3& scale)
 		tri[i].y += 1.f;
 		tri[i].y *= scale.y;
 
-		tri[i].z += 1.f;
-		tri[i].z *= scale.z;
+		//tri[i].z += 1.f;
+		//tri[i].z *= scale.z;
 	}
 }
 

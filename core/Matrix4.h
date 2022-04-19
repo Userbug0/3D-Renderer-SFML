@@ -24,6 +24,9 @@ public:
     Matrix4& Apply(float (*func)(float));
     Matrix4& Transpose();
 
+    // Only for Rotation/Translation Matrices
+    Matrix4& QuickInverse();
+
     Vector4 GetColumn(size_t index) const;
 
     inline auto begin()       { return m_array.begin(); }

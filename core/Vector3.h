@@ -6,11 +6,6 @@
 
 class Vector3{
 public:
-    float x;
-    float y;
-    float z;
-
-public:
     Vector3();
     Vector3(float X, float Y, float Z);
 
@@ -60,5 +55,18 @@ public:
     friend Vector3 operator*(float k, const Vector3& v);
     friend Vector3 operator+(float k, const Vector3& v);
     friend std::ostream& operator<<(std::ostream& out, const Vector3& v);
+
+public:
+    float x;
+    float y;
+    float z;
+
+public:
+    static const Vector3 up;
+    static const Vector3 down;
+    static const Vector3 right;
+    static const Vector3 left;
+    static const Vector3 forward;
+    static const Vector3 back;
 };
 

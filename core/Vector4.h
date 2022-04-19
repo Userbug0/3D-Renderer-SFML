@@ -8,12 +8,6 @@
 
 class Vector4 {
 public:
-    float x;
-    float y;
-    float z;
-    float w;
-
-public:
     // all dimensions = 0
     Vector4();
     Vector4(float X, float Y, float Z, float W);
@@ -66,5 +60,11 @@ public:
     friend Vector4 operator+(float k, const Vector4& v);
     friend Vector4 operator*(float k, const Vector4& v);
     friend std::ostream& operator<<(std::ostream& out, const Vector4& v);
+
+public:
+    float x;
+    float y;
+    float z;
+    float w;
 };
 

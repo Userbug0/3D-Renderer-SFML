@@ -61,6 +61,22 @@ Matrix4& Matrix4::Transpose()
 }
 
 
+Matrix4& Matrix4::QuickInverse()
+{
+    auto tmp = m_array;
+
+    m_array[0][0] = tmp[0][0]; m_array[0][1] = tmp[1][0]; m_array[0][2] = tmp[2][0]; m_array[0][3] = 0.0f;
+    m_array[1][0] = tmp[0][1]; m_array[1][1] = tmp[1][1]; m_array[1][2] = tmp[2][1]; m_array[1][3] = 0.0f;
+    m_array[2][0] = tmp[0][2]; m_array[2][1] = tmp[1][2]; m_array[2][2] = tmp[2][2]; m_array[2][3] = 0.0f;
+    m_array[3][0] = -(tmp[3][0] * m_array[0][0] + tmp[3][1] * m_array[1][0] + tmp[3][2] * m_array[2][0]);
+    m_array[3][1] = -(tmp[3][0] * m_array[0][1] + tmp[3][1] * m_array[1][1] + tmp[3][2] * m_array[2][1]);
+    m_array[3][2] = -(tmp[3][0] * m_array[0][2] + tmp[3][1] * m_array[1][2] + tmp[3][2] * m_array[2][2]);
+    m_array[3][3] = 1.0f;
+
+    return *this;
+}
+
+
 Vector4 Matrix4::GetColumn(size_t index) const
 {
     Vector4 res;
@@ -204,14 +220,12 @@ Matrix4 Matrix4::operator*(const Matrix4& other) const
 {
     Matrix4 mat;
 
-    Matrix4 transposed = other;
-    transposed.Transpose();
-
     for (size_t i = 0; i < 4; i++) 
     {
         for (size_t j = 0; j < 4; j++) 
         {
-            mat[i][j] = Vector4::DotProduct(m_array[i], transposed[j]);
+            for(size_t k = 0; k < 4; ++k)
+                mat[i][j] += m_array[i][k] * other[k][j];
         }
     }
 
