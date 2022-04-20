@@ -11,7 +11,7 @@
 class Triangle
 {
 public:
-	Triangle() = default;
+	Triangle();
 	Triangle(const std::initializer_list<Vector3>& list);
 	~Triangle() = default;
 
@@ -20,7 +20,7 @@ public:
 	Vector3 operator[] (size_t index) const { return m_points[index]; } 
 	Vector3& operator[] (size_t index) { return m_points[index]; } 
 	
-	sf::Color GetVertexColor(size_t i);
+	sf::Color GetVertexColor(size_t i) const;
 	void SetVertexColor(size_t i, const sf::Color& color);
 	// \return Normalized vector
 	Vector3 GetNormal() const; 

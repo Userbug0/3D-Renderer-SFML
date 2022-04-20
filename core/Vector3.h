@@ -62,6 +62,7 @@ public:
     float z;
 
 public:
+    static const Vector3 zero;
     static const Vector3 up;
     static const Vector3 down;
     static const Vector3 right;

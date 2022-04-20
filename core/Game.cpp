@@ -5,8 +5,8 @@
 #include "Settings.h"
 
 
-Game::Game():
-    m_running(true)
+Game::Game()
+    : m_running(true)
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
@@ -30,10 +30,16 @@ void Game::initObjects()
     //cube->SetColor(sf::Color::Green);
     //m_objects.push_back(cube);
 
-    Cube* cube = new Cube();
-    cube->transform.position += { -0.5f, -0.5f, 3 };
-    cube->SetColor(sf::Color::Cyan);
-    m_objects.push_back(cube);
+    //Cube* cube = new Cube();
+    //cube->transform.position += { -0.5f, -0.5f, 3 };
+    //cube->SetColor(sf::Color::Cyan);
+    //m_objects.push_back(cube);
+
+
+    GameObject* axis = new GameObject("Resources/axis.obj");
+    axis->transform.position += {0, 2, 5};
+    axis->transform.rotation += {1.7f, 2.2f, 0};
+    m_objects.push_back(axis);
 
 
     //GameObject* torus = new GameObject("Resources/torus.obj");
@@ -84,9 +90,9 @@ void Game::handleEvent()
             else if (event.key.code == sf::Keyboard::S)
                 m_Camera->Move(-m_Camera->GetDirection() * 0.1f);
             else if (event.key.code == sf::Keyboard::A)
-                m_Camera->LookAt(-0.05f);
-            else if (event.key.code == sf::Keyboard::D)
                 m_Camera->LookAt(0.05f);
+            else if (event.key.code == sf::Keyboard::D)
+                m_Camera->LookAt(-0.05f);
         }
     }
 }

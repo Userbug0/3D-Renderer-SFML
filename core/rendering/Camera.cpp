@@ -2,7 +2,7 @@
 
 
 Camera::Camera(const Vector3& position, const Vector3& direction)
-	: m_position(position), m_direction(direction), fYaw(0)
+	: m_position(position), m_direction(direction), fYaw(0), m_isUpdated(true)
 {
 
 }
@@ -12,16 +12,22 @@ void Camera::LookAt(float offset)
 {
 	fYaw += offset;
 	m_direction = { -sinf(fYaw), 0, cosf(fYaw) };
+	m_isUpdated = true;
 }
 
 
 const Matrix4& Camera::GetViewMatrix()
 {
-	Vector3 target = m_position + m_direction;
-	pointAt(target, Vector3::up);
-	return m_viewMatrix.QuickInverse();
-}
+	if (m_isUpdated == true)
+	{
+		Vector3 target = m_position + m_direction;
+		pointAt(target, Vector3::down);
+		m_viewMatrix.QuickInverse();
+		m_isUpdated = false;
+	}
 
+	return m_viewMatrix;
+}
 
 
 void Camera::pointAt(const Vector3& target, const Vector3& up)

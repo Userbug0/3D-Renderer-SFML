@@ -1,6 +1,14 @@
 #include "Triangle.h"
 
 
+Triangle::Triangle()
+	:m_toDraw(sf::Triangles, 3)
+{
+	for(uint8_t i = 0; i < 3; ++i)
+		m_toDraw[i] = sf::Vertex({ 0, 0 }, sf::Color::White);
+}
+
+
 Triangle::Triangle(const std::initializer_list<Vector3>& list)
 	: m_toDraw(sf::Triangles, 3)
 {
@@ -38,7 +46,7 @@ void Triangle::SetVertexColor(size_t i, const sf::Color& color)
 }
 
 
-sf::Color Triangle::GetVertexColor(size_t i)
+sf::Color Triangle::GetVertexColor(size_t i) const
 {
 	return m_toDraw[i].color;
 }

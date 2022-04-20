@@ -1,10 +1,12 @@
 #include <algorithm>
+#include <list>
+#include <iostream>
 
 #include "RenderEngine.h"
 #include "../Vector3.h"
 #include "../Settings.h"
+#include "../physics/Intersection.h"
 
-#include <iostream>
 
 
 RenderEngine::RenderEngine(Camera* camera, const sf::Color& bgColor)
@@ -29,7 +31,7 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 
 	for (auto& object : objects)
 	{
-		object->transform.rotation += { 0.005f, -0.005f, 0.005f };
+		//object->transform.rotation += { 0.005f, -0.005f, 0.005f };
 		renderObject(window, object);
 	}
 
@@ -59,13 +61,20 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 
 			worldToView(tri);
 
-			projectTriangle(tri);
-			scaleTriangle(tri, object->transform.scaling);
+			uint8_t nClippedTriangles = 0;
+			Triangle clipped[2];
+			nClippedTriangles = clipTriangleAgainstPlane({ 0.0f, 0.0f, 0.1f }, { 0.0f, 0.0f, 1.0f }, tri, clipped[0], clipped[1]);
 
-			allTriangles.push_back(tri);
-			tri.Draw(window);
+			for (uint8_t n = 0; n < nClippedTriangles; n++)
+			{
+				projectTriangle(clipped[n]);
+				scaleTriangle(clipped[n], object->transform.scaling);
+
+				allTriangles.push_back(clipped[n]);
+			}
 		}
 	}
+
 
 	std::sort(allTriangles.begin(), allTriangles.end(), [](const Triangle& t1, const Triangle& t2)
 		{
@@ -74,8 +83,88 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 			return z1 > z2;
 		});
 
-	for(auto& tri: allTriangles)
-		tri.Draw(window);
+
+	for (auto& tri : allTriangles)
+	{
+		Triangle clipped[2];
+		std::list<Triangle> listTriangles;
+
+		listTriangles.push_back(tri);
+		size_t nNewTriangles = 1;
+
+		for (uint8_t p = 0; p < 4; ++p)
+		{
+			uint8_t nTrisToAdd = 0;
+			while (nNewTriangles > 0)
+			{
+				Triangle test = listTriangles.front();
+				listTriangles.pop_front();
+				--nNewTriangles;
+				switch (p)
+				{
+				case 0:	nTrisToAdd = clipTriangleAgainstPlane({ 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, test, clipped[0], clipped[1]); break;
+				case 1:	nTrisToAdd = clipTriangleAgainstPlane({ 0.0f, (float)WINDOW_HEIGHT - 1, 0.0f }, { 0.0f, -1.0f, 0.0f }, test, clipped[0], clipped[1]); break;
+				case 2:	nTrisToAdd = clipTriangleAgainstPlane({ 0.0f, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f }, test, clipped[0], clipped[1]); break;
+				case 3:	nTrisToAdd = clipTriangleAgainstPlane({ (float)WINDOW_WIDTH - 1, 0.0f, 0.0f }, { -1.0f, 0.0f, 0.0f }, test, clipped[0], clipped[1]); break;
+				}
+
+				for (uint8_t w = 0; w < nTrisToAdd; ++w)
+				{
+					listTriangles.push_back(clipped[w]);
+				}
+			}
+			nNewTriangles = listTriangles.size();
+		}
+		for (auto& t : allTriangles)
+			t.Draw(window);
+	}
+}
+
+
+uint8_t RenderEngine::clipTriangleAgainstPlane(const Vector3& planePoint, const Vector3& planeNormal, const Triangle& inTri,
+											Triangle& outTri1, Triangle& outTri2)
+{
+	uint8_t inside_points[3];
+	uint8_t insidePointCount = 0;
+	uint8_t outside_points[3];
+	uint8_t outsidePointCount = 0;
+
+	float d = -Vector3::DotProduct(planeNormal, planePoint);
+	for (uint8_t i = 0; i < 3; ++i)
+	{
+		float signedDistance = planeNormal.x * inTri[i].x + planeNormal.y * inTri[i].y + planeNormal.z * inTri[i].z	+ d;
+		if (signedDistance >= 0)
+			inside_points[insidePointCount++] = i;
+		else
+			outside_points[outsidePointCount++] = i;
+	}
+
+	switch (insidePointCount)
+	{
+	case 0: return 0u;
+	case 3: outTri1 = inTri; return 1u;
+	case 1:
+		for (uint8_t i = 0; i < 3; ++i)
+			outTri1.SetVertexColor(i, sf::Color::Blue);
+		outTri1[0] = inTri[inside_points[0]];
+		outTri1[1] = Physics::LineIntersectsPlane(planePoint, planeNormal, outTri1[0], inTri[outside_points[0]]);
+		outTri1[2] = Physics::LineIntersectsPlane(planePoint, planeNormal, outTri1[0], inTri[outside_points[1]]);
+		return 1u;
+	case 2:
+		for (uint8_t i = 0; i < 3; ++i)
+			outTri1.SetVertexColor(i, sf::Color::Red);
+		outTri1[0] = inTri[inside_points[0]];
+		outTri1[1] = inTri[inside_points[1]];
+		outTri1[2] = Physics::LineIntersectsPlane(planePoint, planeNormal, outTri1[0], inTri[outside_points[0]]);
+
+		for (uint8_t i = 0; i < 3; ++i)
+			outTri2.SetVertexColor(i, sf::Color::Green);
+		outTri2[0] = inTri[inside_points[1]];
+		outTri2[1] = outTri1[2];
+		outTri2[2] = Physics::LineIntersectsPlane(planePoint, planeNormal, outTri2[0], inTri[outside_points[0]]);
+		return 2u;
+	}
+	return 0u;
 }
 
 

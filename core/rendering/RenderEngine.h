@@ -20,14 +20,24 @@ public:
 private:
 	void renderObject(sf::RenderWindow* window, GameObject* object);
 
-	void worldToView(Triangle& tri);
-
 	bool isVisible(const Triangle& tri);
 	void applySimpleLight(Triangle& tri, const Vector3& light_dir);
-	void translateTriangle(Triangle& tri, const Vector3& position);
+
+	void worldToView(Triangle& tri);
 	void projectTriangle(Triangle& tri);
+
+	void translateTriangle(Triangle& tri, const Vector3& position);
 	void scaleTriangle(Triangle& tri, const Vector3& scale);
 	void rotateTriangle(Triangle& tri, const Vector3& rotation, const Vector3& relative);
+
+	/// <summary>
+	/// inTri can generate two others or one triangles(outTri1, ouTri2) or not generate
+	/// </summary>
+	/// <param name="planeNormal">Must be normalized!</param>
+	/// <returns>Shows how many triangles generated.
+	/// If 0 - triangle not in the screen, if 1 - valid triangle will be in outTri1</returns>
+	uint8_t clipTriangleAgainstPlane(const Vector3& planePoint, const Vector3& planeNormal, const Triangle& inTri,
+								 Triangle& outTri1, Triangle& outTri2);
 
 	Camera* m_Camera;
 

@@ -69,6 +69,9 @@
     <ClInclude Include="core\rendering\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\physics\Intersection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Vector3.cpp">
@@ -102,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\rendering\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\physics\Intersection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
