@@ -47,6 +47,7 @@ public:
 	inline auto end() { return m_array.end(); }
 
 	inline size_t size() const { return m_size; };
+	inline void clear() { m_array.clear(); m_size = 0; }
 
 private:
 	std::vector<Triangle> m_array;

@@ -34,6 +34,9 @@ void GameObject::SetColor(const sf::Color& color)
 
 bool GameObject::ReadFromObjectFile(const std::string& path)
 {
+	m_triangles.clear();
+	m_NumOfTriangles = 0;
+
 	std::ifstream file(path);
 	if (!file.is_open())
 		return false;
