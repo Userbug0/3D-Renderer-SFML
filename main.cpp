@@ -4,6 +4,12 @@
 #include "core/Settings.h"
 
 
+// Z-axis - directed forward
+// Y-axis - directed down
+// X-axis - directed right
+
+
+
 int main()
 {
 	Game game;

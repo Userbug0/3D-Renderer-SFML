@@ -105,7 +105,7 @@ void Matrix4::ApplyMultiplication(Vector3& vec, const Matrix4& mat)
     vec.x = mat[0][0] * tmp.x + mat[1][0] * tmp.y + mat[2][0] * tmp.z + mat[3][0];
     vec.y = mat[0][1] * tmp.x + mat[1][1] * tmp.y + mat[2][1] * tmp.z + mat[3][1];
     vec.z = mat[0][2] * tmp.x + mat[1][2] * tmp.y + mat[2][2] * tmp.z + mat[3][2];
-    w = mat[0][3] * tmp.x + mat[1][3] * tmp.y + mat[2][3] * tmp.z + mat[3][3];
+    w     = mat[0][3] * tmp.x + mat[1][3] * tmp.y + mat[2][3] * tmp.z + mat[3][3];
 
     if (w != 0)
         vec /= w;

@@ -20,6 +20,8 @@ public:
 private:
 	void renderObject(sf::RenderWindow* window, GameObject* object);
 
+	void worldToView(Triangle& tri);
+
 	bool isVisible(const Triangle& tri);
 	void applySimpleLight(Triangle& tri, const Vector3& light_dir);
 	void translateTriangle(Triangle& tri, const Vector3& position);

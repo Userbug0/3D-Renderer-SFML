@@ -57,6 +57,8 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 		{
 			applySimpleLight(tri, light_direction);
 
+			worldToView(tri);
+
 			projectTriangle(tri);
 			scaleTriangle(tri, object->transform.scaling);
 
@@ -74,6 +76,17 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 
 	for(auto& tri: allTriangles)
 		tri.Draw(window);
+}
+
+
+void RenderEngine::worldToView(Triangle& tri)
+{
+	Matrix4 viewMat = m_Camera->GetViewMatrix();
+
+	for (uint8_t i = 0; i < 3; ++i)
+	{
+		Matrix4::ApplyMultiplication(tri[i], viewMat);
+	}
 }
 
 

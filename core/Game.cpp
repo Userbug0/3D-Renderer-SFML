@@ -24,16 +24,17 @@ Game::Game():
 
 void Game::initObjects()
 {
+    //Cube* cube = new Cube();
+    //cube->transform.position += { -0.5f, -0.5f, 5 };
+    //cube->transform.rotation += {1, 1, 1};
+    //cube->SetColor(sf::Color::Green);
+    //m_objects.push_back(cube);
+
     Cube* cube = new Cube();
     cube->transform.position += { -0.5f, -0.5f, 3 };
     cube->SetColor(sf::Color::Cyan);
     m_objects.push_back(cube);
 
-    //Cube* cube = new Cube();
-    //cube->transform.position += { -0.5f, -0.5f, 5 };
-    ////cube->transform.rotation += {1, 1, 1};
-    //cube->SetColor(sf::Color::Green);
-    //m_objects.push_back(cube);
 
     //GameObject* torus = new GameObject("Resources/torus.obj");
     //torus->transform.position += {0.175f, -0.175f, 3};
@@ -76,6 +77,17 @@ void Game::handleEvent()
     {
         if (event.type == sf::Event::Closed)
             m_running = false;
+        if (event.type == sf::Event::KeyPressed)
+        {
+            if (event.key.code == sf::Keyboard::W)
+                m_Camera->Move(m_Camera->GetDirection() * 0.1f);
+            else if (event.key.code == sf::Keyboard::S)
+                m_Camera->Move(-m_Camera->GetDirection() * 0.1f);
+            else if (event.key.code == sf::Keyboard::A)
+                m_Camera->LookAt(-0.05f);
+            else if (event.key.code == sf::Keyboard::D)
+                m_Camera->LookAt(0.05f);
+        }
     }
 }
 
