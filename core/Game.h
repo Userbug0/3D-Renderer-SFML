@@ -4,6 +4,7 @@
 #include "rendering/Camera.h"
 #include "physics/PhysicEngine.h"
 #include "objects/GameObject.h"
+#include "Player.h"
 
 
 class Game
@@ -23,9 +24,11 @@ private:
 
 	bool m_running;
 
+	Camera* m_Camera;
+	Player* m_Player;
+
 	sf::RenderWindow* m_Window;
 	PhysicEngine* m_PhysicEngine;
-	Camera* m_Camera;
 	RenderEngine* m_Renderer;
 };
 

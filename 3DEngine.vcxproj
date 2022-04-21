@@ -157,6 +157,7 @@
     <ClInclude Include="core\objects\GameObject.h" />
     <ClInclude Include="core\physics\Intersection.h" />
     <ClInclude Include="core\physics\PhysicEngine.h" />
+    <ClInclude Include="core\Player.h" />
     <ClInclude Include="core\rendering\Camera.h" />
     <ClInclude Include="core\rendering\RenderEngine.h" />
     <ClInclude Include="core\Settings.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="core\objects\GameObject.cpp" />
     <ClCompile Include="core\physics\Intersection.cpp" />
     <ClCompile Include="core\physics\PhysicEngine.cpp" />
+    <ClCompile Include="core\Player.cpp" />
     <ClCompile Include="core\rendering\Camera.cpp" />
     <ClCompile Include="core\rendering\RenderEngine.cpp" />
     <ClCompile Include="core\rendering\Triangle.cpp" />

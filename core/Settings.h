@@ -7,7 +7,7 @@
 #define WINDOW_WIDTH	1066
 #define WINDOW_HEIGHT	600
 
-#define FPS				200
+#define FPS				60
 
 #define FIELD_OF_VIEW	M_PI / 2
 

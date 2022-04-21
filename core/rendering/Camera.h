@@ -14,6 +14,7 @@ public:
 
 	inline void Move(const Vector3& offset)		 { m_position += offset; m_isUpdated = true; }
 	inline void LookAt(const Vector3& direction) { m_direction = direction; m_isUpdated = true; }
+	void LookAt(float offsetX, float offsetY);
 	void LookAt(float offset);
 
 	const Matrix4& GetViewMatrix();
@@ -25,7 +26,8 @@ private:
 	float fYaw;
 	Matrix4 m_viewMatrix;
 
-	Vector3 m_rotationY;
+	float m_rotationX;
+	float m_rotationY;
 	Vector3 m_position;
 	Vector3 m_direction;
 };

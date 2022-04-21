@@ -15,6 +15,8 @@ Game::Game()
     m_Window->setFramerateLimit(FPS);
 
     m_Camera = new Camera({0, 0, 0});
+    m_Player = new Player(m_Camera);
+
 	m_Renderer = new RenderEngine(m_Camera);
     m_PhysicEngine = new PhysicEngine();
 
@@ -30,10 +32,11 @@ void Game::initObjects()
     cube->SetColor(sf::Color::Green);
     m_objects.push_back(cube);
 
-    //Cube* cube = new Cube();
-    //cube->GetTransform().translation += { -0.5f, -0.5f, 3 };
-    //cube->SetColor(sf::Color::Cyan);
-    //m_objects.push_back(cube);
+    cube = new Cube();
+    cube->GetTransform().translation += { -0.5f, -0.5f, 3 };
+    cube->GetTransform().rotation += {-1, -1, -1};
+    cube->SetColor(sf::Color::Cyan);
+    m_objects.push_back(cube);
 
 
     //GameObject* axis = new GameObject("Resources/axis.obj");
@@ -67,6 +70,7 @@ void Game::gameLoop()
     {
         handleEvent();
 
+        m_Player->Update(clock.getElapsedTime());
         m_PhysicEngine->Update(clock.getElapsedTime(), m_objects);
         clock.restart();
 
@@ -83,16 +87,10 @@ void Game::handleEvent()
     {
         if (event.type == sf::Event::Closed)
             m_running = false;
-        if (event.type == sf::Event::KeyPressed)
+        else if (event.type == sf::Event::KeyPressed)
         {
-            if (event.key.code == sf::Keyboard::W)
-                m_Camera->Move(m_Camera->GetDirection() * 0.1f);
-            else if (event.key.code == sf::Keyboard::S)
-                m_Camera->Move(-m_Camera->GetDirection() * 0.1f);
-            else if (event.key.code == sf::Keyboard::A)
-                m_Camera->LookAt(0.05f);
-            else if (event.key.code == sf::Keyboard::D)
-                m_Camera->LookAt(-0.05f);
+            if (event.key.code == sf::Keyboard::Escape)
+                m_running = false;
         }
     }
 }
@@ -100,10 +98,11 @@ void Game::handleEvent()
 
 Game::~Game()
 {
-    for (auto& object : m_objects)
+    for (auto& object: m_objects)
         delete object;
 
     delete m_Camera;
+    delete m_Player;
     delete m_Renderer;
     delete m_PhysicEngine;
     delete m_Window;
