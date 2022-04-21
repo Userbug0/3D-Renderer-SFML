@@ -10,7 +10,7 @@
 
 
 RenderEngine::RenderEngine(Camera* camera, const sf::Color& bgColor)
-	: m_Camera(camera), m_backgroundColor(bgColor)
+	: m_Camera(camera), m_backgroundColor(bgColor), m_currentIndex(0)
 {
 	float AspectRatio = (float)WINDOW_HEIGHT / WINDOW_WIDTH;
 	float FovRad = 1 / tanf((float)FIELD_OF_VIEW * 0.5f);
@@ -33,6 +33,7 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 	{
 		//object->GetTransform().rotation += { 0.005f, -0.005f, 0.005f };
 		renderObject(window, object);
+		m_currentIndex = 0;
 	}
 
 	window->display();
@@ -43,8 +44,6 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 {
 	Vector3 light_direction = { 0, 0, -1 };
 	
-	std::vector<Triangle> allTriangles;
-
 	for (size_t i = 0; i < object->GetNumOfTriangles(); ++i)
 	{
 		object->ApplyTransform();
@@ -66,13 +65,16 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 				projectTriangle(clipped[n]);
 				scaleTriangle(clipped[n]);
 
-				allTriangles.push_back(clipped[n]);
+				if (m_currentIndex < m_allTriangles.size())
+					m_allTriangles[m_currentIndex] = clipped[n];
+				else
+					m_allTriangles.push_back(clipped[n]);
+				++m_currentIndex;
 			}
 		}
 	}
 
-
-	std::sort(allTriangles.begin(), allTriangles.end(), [](const Triangle& t1, const Triangle& t2)
+	std::sort(m_allTriangles.begin(), m_allTriangles.begin() + m_currentIndex, [](const Triangle& t1, const Triangle& t2)
 		{
 			float z1 = (t1[0].z + t1[1].z + t1[2].z) / 3;
 			float z2 = (t2[0].z + t2[1].z + t2[2].z) / 3;
@@ -80,12 +82,12 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 		});
 
 
-	for (auto& tri : allTriangles)
+	for (size_t i = 0; i < m_currentIndex; ++i)
 	{
 		Triangle clipped[2];
 		std::list<Triangle> listTriangles;
 
-		listTriangles.push_back(tri);
+		listTriangles.push_back(m_allTriangles[i]);
 		size_t nNewTriangles = 1;
 
 		for (uint8_t p = 0; p < 4; ++p)
@@ -111,9 +113,9 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 			}
 			nNewTriangles = listTriangles.size();
 		}
-		for (auto& t : allTriangles)
-			t.Draw(window);
 	}
+	for (size_t i = 0; i < m_currentIndex; ++i)
+		m_allTriangles[i].Draw(window);
 }
 
 
@@ -190,7 +192,7 @@ void RenderEngine::applySimpleLight(Triangle& tri, const Vector3& light_dir)
 	for (uint8_t i = 0; i < 3; ++i)
 	{
 		sf::Color origin = tri.GetVertexColor(i);
-		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow), (uint8_t)(origin.g * shadow), (uint8_t)(origin.b * shadow) });
+		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow + 100), (uint8_t)(origin.g * shadow + 100), (uint8_t)(origin.b * shadow + 100) });
 	}
 
 }

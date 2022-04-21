@@ -2,25 +2,16 @@
 
 
 Camera::Camera(const Vector3& position, const Vector3& direction)
-	: m_position(position), m_direction(direction), fYaw(0), m_isUpdated(true), m_rotationX(0), m_rotationY(0)
+	: m_position(position), m_direction(direction), m_rotationY(0), m_isUpdated(true)
 {
 
-}
-
-
-void Camera::LookAt(float offsetX, float offsetY)
-{
-	m_rotationX += offsetX;
-	m_rotationY += offsetY;
-	m_direction = { -sinf(m_rotationY), sinf(m_rotationX) * cosf(m_rotationY),  cosf(m_rotationX) * cosf(m_rotationY) };
-	m_isUpdated = true;
 }
 
 
 void Camera::LookAt(float offset)
 {
-	fYaw += offset;
-	m_direction = { -sinf(fYaw), 0, cosf(fYaw) };
+	m_rotationY += offset;
+	m_direction = { -sinf(m_rotationY), 0, cosf(m_rotationY) };
 	m_isUpdated = true;
 }
 

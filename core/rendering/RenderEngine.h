@@ -36,6 +36,9 @@ private:
 	uint8_t clipTriangleAgainstPlane(const Vector3& planePoint, const Vector3& planeNormal, const Triangle& inTri,
 								 Triangle& outTri1, Triangle& outTri2);
 
+	size_t m_currentIndex;
+	std::vector<Triangle> m_allTriangles;
+
 	Camera* m_Camera;
 
 	Matrix4 m_projectionMatrix;
