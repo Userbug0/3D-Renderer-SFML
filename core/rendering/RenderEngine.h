@@ -25,10 +25,7 @@ private:
 
 	void worldToView(Triangle& tri);
 	void projectTriangle(Triangle& tri);
-
-	void translateTriangle(Triangle& tri, const Vector3& position);
-	void scaleTriangle(Triangle& tri, const Vector3& scale);
-	void rotateTriangle(Triangle& tri, const Vector3& rotation, const Vector3& relative);
+	void scaleTriangle(Triangle& tri);
 
 	/// <summary>
 	/// inTri can generate two others or one triangles(outTri1, ouTri2) or not generate

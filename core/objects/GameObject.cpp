@@ -5,28 +5,54 @@
 #include "../Settings.h"
 
 
+GameObject::GameObject()
+	: m_isUpdatedTransform(true), m_NumOfTriangles(0)
+{
+	m_transform.scaling = { 1, 1, 1 };
+}
+
+
 GameObject::GameObject(const std::string& path)
+	: m_isUpdatedTransform(true), m_NumOfTriangles(0)
 {
 	ReadFromObjectFile(path);
-	SetOrigin({0, 0, 0});
-	transform.scaling = { 0.5f * (float)WINDOW_WIDTH, 0.5f * (float)WINDOW_HEIGHT, 1 };
+	m_transform.scaling = { 1, 1, 1 };
+}
+
+
+void GameObject::ApplyTransform()
+{
+	if (m_isUpdatedTransform == true)
+	{
+		m_triangles = m_originTriangles;
+
+		Matrix4 toWorld = m_transform.GetTransformMatrix();
+		for (auto& tri: m_triangles)
+		{
+			for (uint8_t j = 0; j < 3; ++j)
+				Matrix4::ApplyMultiplication(tri[j], toWorld);
+		}
+		m_isUpdatedTransform = false;
+	}
 }
 
 
 void GameObject::AddTriangle(const Triangle& tri)
 {
 	m_triangles.AddTriangle(tri); 
+	m_originTriangles.AddTriangle(tri);
 	++m_NumOfTriangles; 
 }
 
 
 void GameObject::SetColor(const sf::Color& color)
 {
-	for (auto& tri : m_triangles)
+	for (size_t i = 0; i < m_NumOfTriangles; ++i)
 	{
-		for (size_t i = 0; i < 3; ++i)
+		for (size_t j = 0; j < 3; ++j)
 		{
-			tri.SetVertexColor(i, color);
+			m_triangles[i].SetVertexColor(j, color);
+			m_originTriangles[i].SetVertexColor(j, color);
 		}
 	}
 }
@@ -65,6 +91,7 @@ bool GameObject::ReadFromObjectFile(const std::string& path)
 			size_t f[3];
 			s >> junk >> f[0] >> f[1] >> f[2];
 			m_triangles.AddTriangle({vertices[f[0] - 1], vertices[f[1] - 1], vertices[f[2] - 1]});
+			m_originTriangles.AddTriangle({ vertices[f[0] - 1], vertices[f[1] - 1], vertices[f[2] - 1] });
 			++m_NumOfTriangles;
 		}
 	}

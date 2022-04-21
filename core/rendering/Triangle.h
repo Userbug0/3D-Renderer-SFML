@@ -38,7 +38,7 @@ public:
 	Mesh(const std::initializer_list<Triangle>& list);
 	~Mesh() = default;
 
-	inline Triangle operator[] (size_t index) const { return m_array[index]; }
+	inline const Triangle& operator[] (size_t index) const { return m_array[index]; }
 	inline Triangle& operator[] (size_t index) { return m_array[index]; } 
 
 	inline void AddTriangle(const Triangle& tri) { m_array.push_back(tri); ++m_size; }

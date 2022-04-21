@@ -8,26 +8,27 @@
 class GameObject
 {
 public:
-	GameObject() = default;
+	GameObject();
 	GameObject(const std::string& path);
-		
+	
+	void ApplyTransform();
+	inline Transform& GetTransform() { m_isUpdatedTransform = true; return m_transform; };
+
 	inline size_t GetNumOfTriangles()	   const { return m_NumOfTriangles; }
 	inline Triangle& GetTriangle(size_t i)       { return m_triangles[i];   }
 	inline Triangle GetTriangle(size_t i)  const { return m_triangles[i]; }
-
-	inline Vector3 GetOrigin() 			   const { return m_origin; }
-	inline void SetOrigin(const Vector3& point)  { m_origin = point; }
 
 	void AddTriangle(const Triangle& tri);
 	void SetColor(const sf::Color& color);
 
 	bool ReadFromObjectFile(const std::string& path);
 	
-	Transform transform;
-
 private:
+	bool m_isUpdatedTransform;
+	Transform m_transform;
+
 	Mesh m_triangles;
+	Mesh m_originTriangles;
 	size_t m_NumOfTriangles;
-	Vector3 m_origin;
 };
 

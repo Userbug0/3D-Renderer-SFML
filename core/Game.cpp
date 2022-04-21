@@ -24,26 +24,26 @@ Game::Game()
 
 void Game::initObjects()
 {
-    //Cube* cube = new Cube();
-    //cube->transform.position += { -0.5f, -0.5f, 5 };
-    //cube->transform.rotation += {1, 1, 1};
-    //cube->SetColor(sf::Color::Green);
-    //m_objects.push_back(cube);
+    Cube* cube = new Cube();
+    cube->GetTransform().translation += { -0.5f, -0.5f, 5 };
+    cube->GetTransform().rotation += {1, 1, 1};
+    cube->SetColor(sf::Color::Green);
+    m_objects.push_back(cube);
 
     //Cube* cube = new Cube();
-    //cube->transform.position += { -0.5f, -0.5f, 3 };
+    //cube->GetTransform().translation += { -0.5f, -0.5f, 3 };
     //cube->SetColor(sf::Color::Cyan);
     //m_objects.push_back(cube);
 
 
-    GameObject* axis = new GameObject("Resources/axis.obj");
-    axis->transform.position += {0, 2, 5};
-    axis->transform.rotation += {1.7f, 2.2f, 0};
-    m_objects.push_back(axis);
+    //GameObject* axis = new GameObject("Resources/axis.obj");
+    //axis->GetTransform().translation += {0, 2, 5};
+    //axis->GetTransform().rotation += {1.7f, 2.2f, 0};
+    //m_objects.push_back(axis);
 
 
     //GameObject* torus = new GameObject("Resources/torus.obj");
-    //torus->transform.position += {0.175f, -0.175f, 3};
+    //torus->GetTransform().translation += {0.175f, -0.175f, 3};
     //m_objects.push_back(torus);
 }
 

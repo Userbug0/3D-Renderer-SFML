@@ -31,7 +31,7 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 
 	for (auto& object : objects)
 	{
-		//object->transform.rotation += { 0.005f, -0.005f, 0.005f };
+		//object->GetTransform().rotation += { 0.005f, -0.005f, 0.005f };
 		renderObject(window, object);
 	}
 
@@ -41,19 +41,15 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 
 void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 {
-	Vector3 rotation = object->transform.rotation;
 	Vector3 light_direction = { 0, 0, -1 };
 	
 	std::vector<Triangle> allTriangles;
 
 	for (size_t i = 0; i < object->GetNumOfTriangles(); ++i)
 	{
+		object->ApplyTransform();
+
 		Triangle tri = object->GetTriangle(i);
-
-		translateTriangle(tri, object->transform.position);
-
-		if(rotation.GetLength() != 0)
-			rotateTriangle(tri, rotation, object->transform.position + object->GetOrigin());
 
 		if (isVisible(tri) == true)
 		{
@@ -68,7 +64,7 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 			for (uint8_t n = 0; n < nClippedTriangles; n++)
 			{
 				projectTriangle(clipped[n]);
-				scaleTriangle(clipped[n], object->transform.scaling);
+				scaleTriangle(clipped[n]);
 
 				allTriangles.push_back(clipped[n]);
 			}
@@ -200,15 +196,6 @@ void RenderEngine::applySimpleLight(Triangle& tri, const Vector3& light_dir)
 }
 
 
-void RenderEngine::translateTriangle(Triangle& tri, const Vector3& position)
-{
-	for (uint8_t i = 0; i < 3; ++i)
-	{
-		tri[i] += position;
-	}
-}
-
-
 void RenderEngine::projectTriangle(Triangle& tri)
 {
 	for (uint8_t i = 0; i < 3; ++i)
@@ -218,50 +205,15 @@ void RenderEngine::projectTriangle(Triangle& tri)
 }
 
 
-void RenderEngine::scaleTriangle(Triangle& tri, const Vector3& scale)
+void RenderEngine::scaleTriangle(Triangle& tri)
 {
 	for (uint8_t i = 0; i < 3; ++i)
 	{
 		tri[i].x += 1.f;
-		tri[i].x *= scale.x;
+		tri[i].x *= 0.5f * float(WINDOW_WIDTH);
 
 		tri[i].y += 1.f;
-		tri[i].y *= scale.y;
-
-		//tri[i].z += 1.f;
-		//tri[i].z *= scale.z;
-	}
-}
-
-
-void RenderEngine::rotateTriangle(Triangle& tri, const Vector3& rotation, const Vector3& relative)
-{
-	float sinx = sinf(rotation.x);
-	float siny = sinf(rotation.y);
-	float sinz = sinf(rotation.z);
-
-	float cosx = cosf(rotation.x);
-	float cosy = cosf(rotation.y);
-	float cosz = cosf(rotation.z);
-
-
-	for (uint8_t i = 0; i < 3; ++i)
-	{
-		Vector3 original = tri[i] - relative;
-
-		tri[i].x = original.x * (cosz * cosy) +
-			original.y * (cosz * siny * sinx - sinz * cosx) +
-			original.z * (cosz * siny * cosx + sinz * sinx);
-
-		tri[i].y = original.x * (sinz * cosy) +
-			original.y * (sinz * siny * sinx + cosz * cosx) +
-			original.z * (sinz * siny * cosx - cosz * sinx);
-
-		tri[i].z = original.x * (-siny) +
-			original.y * (cosy * sinx) +
-			original.z * (cosy * cosx);
-
-		tri[i] += relative;
+		tri[i].y *= 0.5f * float(WINDOW_HEIGHT);
 	}
 }
 
