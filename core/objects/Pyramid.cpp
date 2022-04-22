@@ -11,7 +11,7 @@ Pyramid::Pyramid(float height, float radius, size_t numOfVertices)
     Vector3 top = { 0, 0, m_height };
     float prevPointx = m_baseRadius, prevPointy = 0, pointx, pointy;
 
-    for (float angle = 360 / m_baseNumOfVertices; angle <= 360; angle += 360 / m_baseNumOfVertices)
+    for (float angle = 360.f / m_baseNumOfVertices; angle <= 360; angle += 360 / m_baseNumOfVertices)
     {
         pointx = m_baseRadius * cosf(angle * (float)M_PI / 180);
         pointy = m_baseRadius * sinf(angle * (float)M_PI / 180);

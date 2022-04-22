@@ -82,7 +82,7 @@
       <Filter>Header Files\objects</Filter>
     </ClInclude>
     <ClInclude Include="core\objects\Sphere.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +135,7 @@
       <Filter>Source Files\objects</Filter>
     </ClCompile>
     <ClCompile Include="core\objects\Sphere.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

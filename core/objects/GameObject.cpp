@@ -45,6 +45,13 @@ void GameObject::AddTriangle(const Triangle& tri)
 }
 
 
+void GameObject::ChangeTriangle(size_t i, const Triangle& other)
+{
+	m_triangles[i] = other;
+	m_originTriangles[i] = other;
+}
+
+
 void GameObject::SetColor(const sf::Color& color)
 {
 	for (size_t i = 0; i < m_NumOfTriangles; ++i)

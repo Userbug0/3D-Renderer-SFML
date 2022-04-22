@@ -14,17 +14,19 @@ public:
 	void ApplyTransform();
 	inline Transform& GetTransform() { m_isUpdatedTransform = true; return m_transform; };
 
-	inline size_t GetNumOfTriangles()	   const { return m_NumOfTriangles; }
-	inline Triangle& GetTriangle(size_t i)       { return m_triangles[i];   }
-	inline Triangle GetTriangle(size_t i)  const { return m_triangles[i]; }
+	inline size_t GetNumOfTriangles()			  const { return m_NumOfTriangles; }
+	inline const Triangle& GetTriangle(size_t i)  const { return m_triangles[i]; }
 
-	void AddTriangle(const Triangle& tri);
 	void SetColor(const sf::Color& color);
 	void SetTriangleColor(size_t i, const sf::Color& color);
-
-	bool ReadFromObjectFile(const std::string& path);
 	
 	bool UsingLight = true;
+
+protected:
+	void AddTriangle(const Triangle& tri);
+	void ChangeTriangle(size_t i, const Triangle& other);
+	bool ReadFromObjectFile(const std::string& path);
+
 private:
 	bool m_isUpdatedTransform;
 	Transform m_transform;

@@ -35,7 +35,7 @@ void Game::initObjects()
     floor->GetTransform().rotation += {-1.53f, 0, 0};
     m_objects.push_back(floor);
 
-    Sphere* sphere = new Sphere(1.f);
+    Sphere* sphere = new Sphere(1.f, 3);
     sphere->GetTransform().translation += {0.f, -0.f, 2};
     sphere->GetTransform().rotation += {1.53f, 0, 0};
     sphere->SetColor({250, 150, 0});

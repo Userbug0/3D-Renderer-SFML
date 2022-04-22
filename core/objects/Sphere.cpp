@@ -2,16 +2,52 @@
 #include "../Settings.h"
 
 
-
-Sphere::Sphere(float radius)
+Sphere::Sphere(float radius, size_t detailLevel)
     : m_Radius(radius)
 {
-    Vector3 top = {0, 0, m_Radius};
+    makeIcosaedr();
 
-    float offsetz = top.z - m_Radius * (1 - 0.5f * (1 - 1 / std::sqrtf(5)));
+    for (size_t i = 0; i < detailLevel; ++i)
+    {
+        size_t numOfTri = GetNumOfTriangles();
+        for (size_t j = 0; j < numOfTri; ++j)
+        {
+            detailTriangle(j);
+        }
+    }
+}
 
-    float tmpRadius = sqrtf(m_Radius * m_Radius - offsetz * offsetz);
-    float prevPointx = tmpRadius, prevPointy = 0, pointx, pointy;
+
+void Sphere::detailTriangle(size_t index)
+{
+    Triangle tri = GetTriangle(index);
+
+    Vector3 mid1 = 0.5 * (tri[0] + tri[1]);
+    Vector3 mid2 = 0.5 * (tri[0] + tri[2]);
+    Vector3 mid3 = 0.5 * (tri[1] + tri[2]);
+
+    mid1 *= m_Radius / Vector3::Distance({ 0, 0, 0 }, mid1);
+    mid2 *= m_Radius / Vector3::Distance({ 0, 0, 0 }, mid2);
+    mid3 *= m_Radius / Vector3::Distance({ 0, 0, 0 }, mid3);
+     
+    AddTriangle({ mid1, mid3, mid2 });
+    AddTriangle({ mid1, tri[1], mid3 });
+    AddTriangle({ mid2, mid3, tri[2] });
+
+    ChangeTriangle(index, {tri[0], mid1, mid2});
+}
+
+
+void Sphere::makeIcosaedr()
+{
+    Vector3 top = { 0, 0, m_Radius };
+
+    float offsetz = m_Radius * (0.25f + std::sqrtf(5) / 20);
+
+    float tmpRadius = std::sqrtf(m_Radius * m_Radius - offsetz * offsetz);
+    float prevPointx = tmpRadius * cosf(36 * (float)M_PI / 180);
+    float prevPointy = tmpRadius * sinf(36 * (float)M_PI / 180);
+    float pointx, pointy;
 
     for (float angle = 360 / 5 + 36; angle <= 360 + 36; angle += 360 / 5)
     {
@@ -25,7 +61,7 @@ Sphere::Sphere(float radius)
     }
 
     top = -top;
-    prevPointx = tmpRadius, prevPointy = 0, pointx, pointy;
+    prevPointx = tmpRadius, prevPointy = 0;
 
     for (float angle = 360 / 5; angle <= 360; angle += 360 / 5)
     {
@@ -45,5 +81,5 @@ Sphere::Sphere(float radius)
         AddTriangle({ up[0], down[1], down[0] });
         AddTriangle({ up[0], down[0], up[1] });
     }
-
 }
+
