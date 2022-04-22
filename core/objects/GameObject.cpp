@@ -49,11 +49,17 @@ void GameObject::SetColor(const sf::Color& color)
 {
 	for (size_t i = 0; i < m_NumOfTriangles; ++i)
 	{
-		for (size_t j = 0; j < 3; ++j)
-		{
-			m_triangles[i].SetVertexColor(j, color);
-			m_originTriangles[i].SetVertexColor(j, color);
-		}
+		SetTriangleColor(i, color);
+	}
+}
+
+
+void GameObject::SetTriangleColor(size_t i, const sf::Color& color)
+{
+	for (size_t j = 0; j < 3; ++j)
+	{
+		m_triangles[i].SetVertexColor(j, color);
+		m_originTriangles[i].SetVertexColor(j, color);
 	}
 }
 

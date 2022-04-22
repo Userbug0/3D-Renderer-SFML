@@ -20,6 +20,7 @@ public:
 
 	void AddTriangle(const Triangle& tri);
 	void SetColor(const sf::Color& color);
+	void SetTriangleColor(size_t i, const sf::Color& color);
 
 	bool ReadFromObjectFile(const std::string& path);
 	
