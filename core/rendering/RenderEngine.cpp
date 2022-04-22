@@ -143,20 +143,36 @@ uint8_t RenderEngine::clipTriangleAgainstPlane(const Vector3& planePoint, const 
 	case 3: outTri1 = inTri; return 1u;
 	case 1:
 		for (uint8_t i = 0; i < 3; ++i)
-			outTri1.SetVertexColor(i, sf::Color::Blue);
+		{
+			if(m_ShowClippedTriangles)
+				outTri1.SetVertexColor(i, sf::Color::Blue);
+			else
+				outTri1.SetVertexColor(i, inTri.GetVertexColor(i));
+		}
+
 		outTri1[0] = inTri[inside_points[0]];
 		outTri1[1] = Physics::LineIntersectsPlane(planePoint, planeNormal, outTri1[0], inTri[outside_points[0]]);
 		outTri1[2] = Physics::LineIntersectsPlane(planePoint, planeNormal, outTri1[0], inTri[outside_points[1]]);
 		return 1u;
 	case 2:
 		for (uint8_t i = 0; i < 3; ++i)
-			outTri1.SetVertexColor(i, sf::Color::Red);
+		{
+			if (m_ShowClippedTriangles)
+				outTri1.SetVertexColor(i, sf::Color::Red);
+			else
+				outTri1.SetVertexColor(i, inTri.GetVertexColor(i));
+		}
 		outTri1[0] = inTri[inside_points[0]];
 		outTri1[1] = inTri[inside_points[1]];
 		outTri1[2] = Physics::LineIntersectsPlane(planePoint, planeNormal, outTri1[0], inTri[outside_points[0]]);
 
 		for (uint8_t i = 0; i < 3; ++i)
-			outTri2.SetVertexColor(i, sf::Color::Green);
+		{
+			if (m_ShowClippedTriangles)
+				outTri2.SetVertexColor(i, sf::Color::Green);
+			else
+				outTri2.SetVertexColor(i, inTri.GetVertexColor(i));
+		}
 		outTri2[0] = inTri[inside_points[1]];
 		outTri2[1] = outTri1[2];
 		outTri2[2] = Physics::LineIntersectsPlane(planePoint, planeNormal, outTri2[0], inTri[outside_points[0]]);
@@ -192,7 +208,7 @@ void RenderEngine::applySimpleLight(Triangle& tri, const Vector3& light_dir)
 	for (uint8_t i = 0; i < 3; ++i)
 	{
 		sf::Color origin = tri.GetVertexColor(i);
-		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow + 100), (uint8_t)(origin.g * shadow + 100), (uint8_t)(origin.b * shadow + 100) });
+		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow), (uint8_t)(origin.g * shadow), (uint8_t)(origin.b * shadow) });
 	}
 
 }

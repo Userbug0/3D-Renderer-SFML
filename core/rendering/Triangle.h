@@ -28,6 +28,11 @@ public:
 private:
 	Vector3 m_points[3];
 	sf::VertexArray m_toDraw;
+
+	static const bool m_DrawOutline = false;
+	sf::VertexArray m_toDrawOutline;
+
+	sf::Color m_DefaultColor;
 };
 
 

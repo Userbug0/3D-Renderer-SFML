@@ -26,11 +26,11 @@ Game::Game()
 
 void Game::initObjects()
 {
-    //Cube* cube = new Cube();
-    //cube->GetTransform().translation += { -0.5f, -0.5f, 5 };
-    //cube->GetTransform().rotation += {1, 1, 1};
-    //cube->SetColor(sf::Color::Green);
-    //m_objects.push_back(cube);
+    Cube* cube = new Cube();
+    cube->GetTransform().translation += { -0.5f, -0.5f, 5 };
+    cube->GetTransform().rotation += {1, 1, 1};
+    cube->SetColor(sf::Color::Green);
+    m_objects.push_back(cube);
 
     //cube = new Cube();
     //cube->GetTransform().translation += { -0.5f, -0.5f, 3 };
@@ -49,10 +49,10 @@ void Game::initObjects()
     //torus->GetTransform().translation += {0.175f, -0.175f, 3};
     //m_objects.push_back(torus);
 
-    GameObject* map = new GameObject("Resources/map.obj");
-    map->GetTransform().translation += {1.f, 1.f, 1};
-    map->GetTransform().rotation += {0.f, 0, 3.1f};
-    m_objects.push_back(map);
+    //GameObject* map = new GameObject("Resources/map.obj");
+    //map->GetTransform().translation += {1.f, 1.f, 1};
+    //map->GetTransform().rotation += {0.f, 0, 3.1f};
+    //m_objects.push_back(map);
 }
 
 
