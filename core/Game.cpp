@@ -3,6 +3,8 @@
 #include "Game.h"
 #include "objects\Cube.h"
 #include "objects\Pyramid.h"
+#include "objects\RegularPolygon.h"
+#include "objects\Sphere.h"
 #include "Settings.h"
 
 
@@ -33,25 +35,30 @@ void Game::initObjects()
     floor->GetTransform().rotation += {-1.53f, 0, 0};
     m_objects.push_back(floor);
 
-    GameObject* torus = new GameObject("Resources/torus.obj");
-    torus->SetColor({ 150, 150, 0 });
-    torus->UsingLight = true;
-    torus->GetTransform().translation += {-2.f, -0.175f, 7};
-    m_objects.push_back(torus);
+    Sphere* sphere = new Sphere(1.f);
+    sphere->GetTransform().translation += {0.f, -0.f, 2};
+    sphere->GetTransform().rotation += {1.53f, 0, 0};
+    sphere->SetColor({250, 150, 0});
+    m_objects.push_back(sphere);
 
+    //GameObject* torus = new GameObject("Resources/torus.obj");
+    //torus->SetColor({ 150, 150, 0 });
+    //torus->UsingLight = true;
+    //torus->GetTransform().translation += {-2.f, -0.175f, 7};
+    //m_objects.push_back(torus);
 
-    Cube* cube = new Cube(1, 1, 2);
-    cube->GetTransform().translation += { -0.5f, -0.5f, 5 };
-    cube->GetTransform().rotation += {0, 1, 0};
-    cube->SetColor(sf::Color::Green);
-    m_objects.push_back(cube);
+    //Cube* cube = new Cube(1, 1, 2);
+    //cube->GetTransform().translation += { -0.5f, -0.5f, 5 };
+    //cube->GetTransform().rotation += {0, 1, 0};
+    //cube->SetColor(sf::Color::Green);
+    //m_objects.push_back(cube);
 
-    Pyramid* pyramid = new Pyramid(3, 2, 4);
-    pyramid->GetTransform().translation += {5.f, 0.5f, 6};
-    pyramid->GetTransform().rotation += {1.53f, 0, 0};
-    pyramid->SetColor({0, 150, 0});
-    pyramid->SetBaseColor({ 10, 10, 0 });
-    m_objects.push_back(pyramid);
+    //Pyramid* pyramid = new Pyramid(3, 2, 20);
+    //pyramid->GetTransform().translation += {5.f, 0.5f, 6};
+    //pyramid->GetTransform().rotation += {1.53f, 0, 0};
+    //pyramid->SetColor({0, 150, 0});
+    //pyramid->SetBaseColor({ 10, 10, 0 });
+    //m_objects.push_back(pyramid);
 
     //GameObject* axis = new GameObject("Resources/axis.obj");
     //axis->GetTransform().translation += {0, 2, 5};

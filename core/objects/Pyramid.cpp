@@ -27,16 +27,9 @@ Pyramid::Pyramid(float height, float radius, size_t numOfVertices)
 }
 
 
-Pyramid::Pyramid(float height, RegularPolygon base)
-	: m_height(height), m_baseRadius(base.GetRadius()), m_baseNumOfVertices(base.GetNumOfVertices())
-{
-
-}
-
-
 void Pyramid::SetBaseColor(const sf::Color& color)
 {
-    for (size_t i = 1; i < m_baseNumOfVertices * 2; i+= 2)
+    for (size_t i = 1; i < m_baseNumOfVertices * 2; i += 2)
     {
         SetTriangleColor(i, color);
     }

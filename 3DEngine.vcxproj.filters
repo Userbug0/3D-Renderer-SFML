@@ -81,6 +81,9 @@
     <ClInclude Include="core\objects\Pyramid.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
+    <ClInclude Include="core\objects\Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Vector3.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="core\objects\Pyramid.cpp">
       <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="core\objects\Sphere.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,13 +1,12 @@
 #pragma once
 
-#include "RegularPolygon.h"
+#include "GameObject.h"
 
 
 class Pyramid: public GameObject 
 {
 public:
 	Pyramid(float height, float radius, size_t numOfVertices);
-	Pyramid(float height, RegularPolygon base);
 
 	void SetBaseColor(const sf::Color& color);
 

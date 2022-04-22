@@ -157,6 +157,7 @@
     <ClInclude Include="core\objects\GameObject.h" />
     <ClInclude Include="core\objects\Pyramid.h" />
     <ClInclude Include="core\objects\RegularPolygon.h" />
+    <ClInclude Include="core\objects\Sphere.h" />
     <ClInclude Include="core\physics\Intersection.h" />
     <ClInclude Include="core\physics\PhysicEngine.h" />
     <ClInclude Include="core\Player.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="core\objects\GameObject.cpp" />
     <ClCompile Include="core\objects\Pyramid.cpp" />
     <ClCompile Include="core\objects\RegularPolygon.cpp" />
+    <ClCompile Include="core\objects\Sphere.cpp" />
     <ClCompile Include="core\physics\Intersection.cpp" />
     <ClCompile Include="core\physics\PhysicEngine.cpp" />
     <ClCompile Include="core\Player.cpp" />
