@@ -16,6 +16,7 @@ public:
 	~Triangle() = default;
 
 	void Draw(sf::RenderWindow* window);
+	void DrawOutline(sf::RenderWindow* window);
 
 	Vector3 operator[] (size_t index) const { return m_points[index]; } 
 	Vector3& operator[] (size_t index) { return m_points[index]; } 
@@ -29,7 +30,6 @@ private:
 	Vector3 m_points[3];
 	sf::VertexArray m_toDraw;
 
-	static const bool m_DrawOutline = false;
 	sf::VertexArray m_toDrawOutline;
 
 	sf::Color m_DefaultColor;

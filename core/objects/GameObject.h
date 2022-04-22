@@ -23,6 +23,7 @@ public:
 
 	bool ReadFromObjectFile(const std::string& path);
 	
+	bool UsingLight = true;
 private:
 	bool m_isUpdatedTransform;
 	Transform m_transform;

@@ -155,6 +155,7 @@
     <ClInclude Include="core\Game.h" />
     <ClInclude Include="core\Matrix4.h" />
     <ClInclude Include="core\objects\GameObject.h" />
+    <ClInclude Include="core\objects\RegularPolygon.h" />
     <ClInclude Include="core\physics\Intersection.h" />
     <ClInclude Include="core\physics\PhysicEngine.h" />
     <ClInclude Include="core\Player.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="core\objects\Cube.cpp" />
     <ClCompile Include="core\Game.cpp" />
     <ClCompile Include="core\objects\GameObject.cpp" />
+    <ClCompile Include="core\objects\RegularPolygon.cpp" />
     <ClCompile Include="core\physics\Intersection.cpp" />
     <ClCompile Include="core\physics\PhysicEngine.cpp" />
     <ClCompile Include="core\Player.cpp" />

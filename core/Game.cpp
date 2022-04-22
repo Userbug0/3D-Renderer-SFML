@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "objects\Cube.h"
+#include "objects\RegularPolygon.h"
 #include "Settings.h"
 
 
@@ -26,28 +27,29 @@ Game::Game()
 
 void Game::initObjects()
 {
-    Cube* cube = new Cube();
+    RegularPolygon* floor = new RegularPolygon(8, 6);
+    floor->UsingLight = false;
+    floor->GetTransform().translation += {0.175f, 0.33f, 3};
+    floor->GetTransform().rotation += {-1.53f, 0, 0};
+    m_objects.push_back(floor);
+
+    GameObject* torus = new GameObject("Resources/torus.obj");
+    torus->SetColor({ 150, 150, 0 });
+    torus->UsingLight = true;
+    torus->GetTransform().translation += {-2.f, -0.175f, 7};
+    m_objects.push_back(torus);
+
+    Cube* cube = new Cube(1, 1, 2);
     cube->GetTransform().translation += { -0.5f, -0.5f, 5 };
-    cube->GetTransform().rotation += {1, 1, 1};
+    cube->GetTransform().rotation += {0, 1, 0};
     cube->SetColor(sf::Color::Green);
     m_objects.push_back(cube);
-
-    //cube = new Cube();
-    //cube->GetTransform().translation += { -0.5f, -0.5f, 3 };
-    //cube->GetTransform().rotation += {-1, -1, -1};
-    //cube->SetColor(sf::Color::Cyan);
-    //m_objects.push_back(cube);
 
 
     //GameObject* axis = new GameObject("Resources/axis.obj");
     //axis->GetTransform().translation += {0, 2, 5};
     //axis->GetTransform().rotation += {1.7f, 2.2f, 0};
     //m_objects.push_back(axis);
-
-
-    //GameObject* torus = new GameObject("Resources/torus.obj");
-    //torus->GetTransform().translation += {0.175f, -0.175f, 3};
-    //m_objects.push_back(torus);
 
     //GameObject* map = new GameObject("Resources/map.obj");
     //map->GetTransform().translation += {1.f, 1.f, 1};

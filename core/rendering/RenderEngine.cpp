@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <list>
-#include <iostream>
 
 #include "RenderEngine.h"
 #include "../Vector3.h"
@@ -31,7 +30,6 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 
 	for (auto& object : objects)
 	{
-		//object->GetTransform().rotation += { 0.005f, -0.005f, 0.005f };
 		renderObject(window, object);
 		m_currentIndex = 0;
 	}
@@ -52,7 +50,8 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 
 		if (isVisible(tri) == true)
 		{
-			applySimpleLight(tri, light_direction);
+			if(object->UsingLight == true)
+				applySimpleLight(tri, light_direction);
 
 			worldToView(tri);
 
@@ -115,7 +114,12 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 		}
 	}
 	for (size_t i = 0; i < m_currentIndex; ++i)
+	{
 		m_allTriangles[i].Draw(window);
+		if(m_ShowClippedTriangles)
+			m_allTriangles[i].DrawOutline(window);
+	}
+
 }
 
 
@@ -145,7 +149,7 @@ uint8_t RenderEngine::clipTriangleAgainstPlane(const Vector3& planePoint, const 
 		for (uint8_t i = 0; i < 3; ++i)
 		{
 			if(m_ShowClippedTriangles)
-				outTri1.SetVertexColor(i, sf::Color::Blue);
+				outTri1.SetVertexColor(i, {0, 0, 175});
 			else
 				outTri1.SetVertexColor(i, inTri.GetVertexColor(i));
 		}
@@ -158,7 +162,7 @@ uint8_t RenderEngine::clipTriangleAgainstPlane(const Vector3& planePoint, const 
 		for (uint8_t i = 0; i < 3; ++i)
 		{
 			if (m_ShowClippedTriangles)
-				outTri1.SetVertexColor(i, sf::Color::Red);
+				outTri1.SetVertexColor(i, {175, 0, 0});
 			else
 				outTri1.SetVertexColor(i, inTri.GetVertexColor(i));
 		}
@@ -169,7 +173,7 @@ uint8_t RenderEngine::clipTriangleAgainstPlane(const Vector3& planePoint, const 
 		for (uint8_t i = 0; i < 3; ++i)
 		{
 			if (m_ShowClippedTriangles)
-				outTri2.SetVertexColor(i, sf::Color::Green);
+				outTri2.SetVertexColor(i, {0, 175, 0});
 			else
 				outTri2.SetVertexColor(i, inTri.GetVertexColor(i));
 		}

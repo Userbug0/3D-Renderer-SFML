@@ -75,6 +75,9 @@
     <ClInclude Include="core\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\objects\RegularPolygon.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\Vector3.cpp">
@@ -118,6 +121,9 @@
     </ClCompile>
     <ClCompile Include="core\Player.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\objects\RegularPolygon.cpp">
+      <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

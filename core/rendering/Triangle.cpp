@@ -2,11 +2,11 @@
 
 
 Triangle::Triangle()
-	: m_toDraw(sf::Triangles, 3), m_toDrawOutline(sf::LineStrip, 4)
+	: m_toDraw(sf::Triangles, 3), m_DefaultColor({200, 200, 200 }), m_toDrawOutline(sf::LineStrip, 4)
 {
 	for (uint8_t i = 0; i < 3; ++i)
 	{
-		m_toDraw[i] = sf::Vertex({ 0, 0 }, sf::Color::White);
+		m_toDraw[i] = sf::Vertex({ 0, 0 }, m_DefaultColor);
 		m_toDrawOutline[i].color = sf::Color::Black;
 	}
 
@@ -15,13 +15,13 @@ Triangle::Triangle()
 
 
 Triangle::Triangle(const std::initializer_list<Vector3>& list)
-	: m_toDraw(sf::Triangles, 3), m_toDrawOutline(sf::LineStrip, 4)
+	: m_toDraw(sf::Triangles, 3), m_DefaultColor({ 200, 200, 200 }), m_toDrawOutline(sf::LineStrip, 4)
 {
 	uint8_t i = 0;
 	for (auto& point : list)
 	{
 		m_points[i] = point;
-		m_toDraw[i] = sf::Vertex({ m_points[i].x, m_points[i].y }, sf::Color::White);
+		m_toDraw[i] = sf::Vertex({ m_points[i].x, m_points[i].y }, m_DefaultColor);
 
 		m_toDrawOutline[i].color = sf::Color::Black;
 		i++;
@@ -38,17 +38,17 @@ void Triangle::Draw(sf::RenderWindow* window)
 	m_toDraw[2].position = { m_points[2].x, m_points[2].y };
 
 	window->draw(m_toDraw);
+}
 
-	if (m_DrawOutline)
-	{
-		m_toDrawOutline[0].position = { m_points[0].x, m_points[0].y };
-		m_toDrawOutline[1].position = { m_points[1].x, m_points[1].y };
-		m_toDrawOutline[2].position = { m_points[2].x, m_points[2].y };
-		m_toDrawOutline[0].position = { m_points[0].x, m_points[0].y };
 
-		window->draw(m_toDrawOutline);
-	}
+void Triangle::DrawOutline(sf::RenderWindow* window)
+{
+	m_toDrawOutline[0].position = { m_points[0].x, m_points[0].y };
+	m_toDrawOutline[1].position = { m_points[1].x, m_points[1].y };
+	m_toDrawOutline[2].position = { m_points[2].x, m_points[2].y };
+	m_toDrawOutline[0].position = { m_points[0].x, m_points[0].y };
 
+	window->draw(m_toDrawOutline);
 }
 
 
