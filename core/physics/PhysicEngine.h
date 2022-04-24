@@ -12,8 +12,10 @@ public:
 	~PhysicEngine() = default;
 
 	void Update(const sf::Time& elapsedTime, std::vector<GameObject*> objects);
+	void HandleEvent(const sf::Event& event);
 	void Start();
 
 private:
-
+	bool m_Pause = true;
+	float m_speedRotation = 1.f;
 };

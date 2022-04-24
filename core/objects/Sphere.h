@@ -6,7 +6,7 @@
 class Sphere: public GameObject
 {
 public:
-	Sphere(float radius, size_t detailLevel = 1);
+	Sphere(float radius, size_t detailLevel = 2);
 
 	float GetRadius() const { return m_Radius; }
 

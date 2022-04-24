@@ -15,6 +15,7 @@ public:
 	~RenderEngine() = default;
 
 	void Start();
+	void HandleEvent(const sf::Event& event);
 	void Render(sf::RenderWindow* window, const std::vector<GameObject*>& objects);
 
 private:

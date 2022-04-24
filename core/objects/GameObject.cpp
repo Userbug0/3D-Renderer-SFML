@@ -24,9 +24,11 @@ void GameObject::ApplyTransform()
 {
 	if (m_isUpdatedTransform == true)
 	{
-		m_triangles = m_originTriangles;
 
 		Matrix4 toWorld = m_transform.GetTransformMatrix();
+
+		m_triangles = m_originTriangles;
+
 		for (auto& tri: m_triangles)
 		{
 			for (uint8_t j = 0; j < 3; ++j)
@@ -45,7 +47,7 @@ void GameObject::AddTriangle(const Triangle& tri)
 }
 
 
-void GameObject::ChangeTriangle(size_t i, const Triangle& other)
+void GameObject::SetTriangle(size_t i, const Triangle& other)
 {
 	m_triangles[i] = other;
 	m_originTriangles[i] = other;

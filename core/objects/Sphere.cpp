@@ -34,7 +34,7 @@ void Sphere::detailTriangle(size_t index)
     AddTriangle({ mid1, tri[1], mid3 });
     AddTriangle({ mid2, mid3, tri[2] });
 
-    ChangeTriangle(index, {tri[0], mid1, mid2});
+    SetTriangle(index, {tri[0], mid1, mid2});
 }
 
 
@@ -45,14 +45,16 @@ void Sphere::makeIcosaedr()
     float offsetz = m_Radius * (0.25f + std::sqrtf(5) / 20);
 
     float tmpRadius = std::sqrtf(m_Radius * m_Radius - offsetz * offsetz);
-    float prevPointx = tmpRadius * cosf(36 * (float)M_PI / 180);
-    float prevPointy = tmpRadius * sinf(36 * (float)M_PI / 180);
-    float pointx, pointy;
 
+    float toRad = (float)M_PI / 180;
+    float prevPointx = tmpRadius * cosf(36 * toRad);
+    float prevPointy = tmpRadius * sinf(36 * toRad);
+    float pointx, pointy;
+    
     for (float angle = 360 / 5 + 36; angle <= 360 + 36; angle += 360 / 5)
     {
-        pointx = tmpRadius * cosf(angle * (float)M_PI / 180);
-        pointy = tmpRadius * sinf(angle * (float)M_PI / 180);
+        pointx = tmpRadius * cosf(angle * toRad);
+        pointy = tmpRadius * sinf(angle * toRad);
 
         AddTriangle({ {prevPointx, prevPointy, offsetz}, {pointx, pointy, offsetz}, top });
 
@@ -65,8 +67,8 @@ void Sphere::makeIcosaedr()
 
     for (float angle = 360 / 5; angle <= 360; angle += 360 / 5)
     {
-        pointx = tmpRadius * cosf(angle * (float)M_PI / 180);
-        pointy = tmpRadius * sinf(angle * (float)M_PI / 180);
+        pointx = tmpRadius * cosf(angle * toRad);
+        pointy = tmpRadius * sinf(angle * toRad);
 
         AddTriangle({ {pointx, pointy, -offsetz}, {prevPointx, prevPointy, -offsetz}, top });
 

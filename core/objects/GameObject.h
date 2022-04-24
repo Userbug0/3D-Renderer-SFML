@@ -24,7 +24,7 @@ public:
 
 protected:
 	void AddTriangle(const Triangle& tri);
-	void ChangeTriangle(size_t i, const Triangle& other);
+	void SetTriangle(size_t i, const Triangle& other);
 	bool ReadFromObjectFile(const std::string& path);
 
 private:

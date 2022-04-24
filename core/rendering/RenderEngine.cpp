@@ -6,6 +6,7 @@
 #include "../Settings.h"
 #include "../physics/Intersection.h"
 
+#include <iostream>
 
 
 RenderEngine::RenderEngine(Camera* camera, const sf::Color& bgColor)
@@ -40,7 +41,7 @@ void RenderEngine::Render(sf::RenderWindow* window, const std::vector<GameObject
 
 void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 {
-	Vector3 light_direction = { 0, 0, -1 };
+	Vector3 light_direction = { 0, 0, 1 };
 	
 	for (size_t i = 0; i < object->GetNumOfTriangles(); ++i)
 	{
@@ -208,11 +209,22 @@ bool RenderEngine::isVisible(const Triangle& tri)
 void RenderEngine::applySimpleLight(Triangle& tri, const Vector3& light_dir)
 {
 	Vector3 normal = tri.GetNormal();
-	float shadow = Vector3::DotProduct(light_dir, normal);
+	float shadow = -Vector3::DotProduct(light_dir, normal);
+	if (shadow >= 0 && shadow < 0.45)
+	{
+		shadow += 0.2;
+	}
+	if (shadow < 0)
+	{
+		shadow = 1 + shadow;
+		shadow /= (3 - shadow);
+	}
+
 	for (uint8_t i = 0; i < 3; ++i)
 	{
 		sf::Color origin = tri.GetVertexColor(i);
-		tri.SetVertexColor(i, { (uint8_t)(origin.r * shadow), (uint8_t)(origin.g * shadow), (uint8_t)(origin.b * shadow) });
+		origin = { (uint8_t)(origin.r * shadow), (uint8_t)(origin.g * shadow), (uint8_t)(origin.b * shadow) };
+		tri.SetVertexColor(i, origin);
 	}
 
 }
@@ -237,6 +249,12 @@ void RenderEngine::scaleTriangle(Triangle& tri)
 		tri[i].y += 1.f;
 		tri[i].y *= 0.5f * float(WINDOW_HEIGHT);
 	}
+}
+
+
+void RenderEngine::HandleEvent(const sf::Event& event)
+{
+
 }
 
 
