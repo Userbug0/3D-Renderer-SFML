@@ -115,10 +115,9 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 	for (size_t i = 0; i < m_currentIndex; ++i)
 	{
 		m_allTriangles[i].Draw(window);
-		//if(m_ShowClippedTriangles)
-		//	m_allTriangles[i].DrawOutline(window);
+		if(m_ShowClippedTriangles)
+			m_allTriangles[i].DrawOutline(window);
 	}
-
 }
 
 
