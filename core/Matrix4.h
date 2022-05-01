@@ -13,8 +13,8 @@ public:
     Matrix4(float value);
     Matrix4(const std::initializer_list<Vector4>& list);
 
-    Matrix4& operator=(const Matrix4& other) = default;
     Matrix4(const Matrix4& matrix)           = default;
+    Matrix4& operator=(const Matrix4& other) = default;
     Matrix4(Matrix4&& matrix)                = default;
     Matrix4& operator=(Matrix4&& other)      = default;
     ~Matrix4()                               = default;

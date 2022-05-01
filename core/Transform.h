@@ -13,5 +13,4 @@ public:
 	Vector3 scaling;
 	Vector3 translation;
 	Vector3 rotation;
-
 };

@@ -15,9 +15,7 @@ public:
 private:
 	void moveHandle(float felapsedTime);
 
+	Camera* m_Camera;
 	static constexpr float m_MoveSpeed = 3.f;
 	static constexpr float m_Sensivity = 3.f;
-
-	sf::Vector2i m_MousePos;
-	Camera* m_Camera;
 };

@@ -11,7 +11,7 @@ RegularPolygon::RegularPolygon(float radius, size_t numOfVertices)
 
     float prevPointx = m_Radius, prevPointy = 0, pointx, pointy;
 
-    for (float angle = 360 / m_NumOfVertices; angle <= 360; angle += 360 / m_NumOfVertices)
+    for (float angle = 360 / (float)m_NumOfVertices; angle <= 360; angle += 360 / m_NumOfVertices)
     {
         pointx = m_Radius * cosf(angle * (float)M_PI / 180);
         pointy = m_Radius * sinf(angle * (float)M_PI / 180);

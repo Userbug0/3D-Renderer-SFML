@@ -6,8 +6,6 @@
 #include "../Settings.h"
 #include "../physics/Intersection.h"
 
-#include <iostream>
-
 
 RenderEngine::RenderEngine(Camera* camera, const sf::Color& bgColor)
 	: m_Camera(camera), m_backgroundColor(bgColor), m_currentIndex(0)
@@ -117,8 +115,8 @@ void RenderEngine::renderObject(sf::RenderWindow* window, GameObject* object)
 	for (size_t i = 0; i < m_currentIndex; ++i)
 	{
 		m_allTriangles[i].Draw(window);
-		if(m_ShowClippedTriangles)
-			m_allTriangles[i].DrawOutline(window);
+		//if(m_ShowClippedTriangles)
+		//	m_allTriangles[i].DrawOutline(window);
 	}
 
 }
@@ -212,7 +210,7 @@ void RenderEngine::applySimpleLight(Triangle& tri, const Vector3& light_dir)
 	float shadow = -Vector3::DotProduct(light_dir, normal);
 	if (shadow >= 0 && shadow < 0.45)
 	{
-		shadow += 0.2;
+		shadow += 0.2f;
 	}
 	if (shadow < 0)
 	{

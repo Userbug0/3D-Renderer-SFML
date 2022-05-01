@@ -5,7 +5,7 @@
 
 
 Player::Player(Camera* camera)
-	: m_Camera(camera), m_MousePos(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+	: m_Camera(camera)
 {
 
 }
