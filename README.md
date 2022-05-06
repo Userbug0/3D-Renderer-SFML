@@ -1,4 +1,4 @@
-# 3D-Engine
+# 3D-Renderer
 
 Simple 3D Engine using SFML 2.5.1
 
